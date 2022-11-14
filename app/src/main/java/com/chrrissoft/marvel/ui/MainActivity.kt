@@ -9,8 +9,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.chrrissoft.marvel.ui.characters.CharacterViewModel
-import com.chrrissoft.marvel.ui.characters.CharactersScreen
+import com.chrrissoft.marvel.ui.entites.characters.CharacterViewModel
+import com.chrrissoft.marvel.ui.entites.characters.CharactersScreen
 import com.chrrissoft.marvel.ui.theme.MarvelTheme
 import dagger.hilt.android.AndroidEntryPoint
 

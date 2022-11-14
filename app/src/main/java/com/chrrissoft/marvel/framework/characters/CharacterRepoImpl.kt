@@ -1,12 +1,14 @@
 package com.chrrissoft.marvel.framework.characters
 
-import android.util.Log
 import com.chrrissoft.marvel.data.characters.CharacterDataSource.LocalCharacterDataSource
 import com.chrrissoft.marvel.data.characters.CharacterDataSource.RemoteCharacterDataSource
-import com.chrrissoft.marvel.data.characters.response.CharacterInfoResponse
-import com.chrrissoft.marvel.data.characters.response.CharacterPreviewResponse
+import com.chrrissoft.marvel.data.characters.CharacterResponse
 import com.chrrissoft.marvel.data.characters.CharactersRepo
-import kotlinx.coroutines.flow.*
+import com.chrrissoft.marvel.data.characters.CharsPrevResponse
+import com.chrrissoft.marvel.data.comics.ComicsPrevResponse
+import com.chrrissoft.marvel.data.events.EventsPrevResponse
+import com.chrrissoft.marvel.data.series.SeriesPrevResponse
+import com.chrrissoft.marvel.data.stories.StoriesPrevResponse
 import javax.inject.Inject
 
 class CharacterRepoImpl @Inject constructor(
@@ -18,23 +20,52 @@ class CharacterRepoImpl @Inject constructor(
         const val TAG = "CharacterRepoImpl"
     }
 
-    override fun getByIdFromLocale(id: Int): Flow<CharacterInfoResponse> {
-        Log.d(TAG, "getting from locale")
-        return localDataSource.getById(id)
+    override fun getFromLocal(): CharacterResponse {
+        TODO("Not yet implemented")
     }
 
-    override fun getAllFromLocale(): Flow<CharacterPreviewResponse> {
-        Log.d(TAG, "getting from locale")
-        return localDataSource.getAll()
+    override fun getFromRemote(): CharacterResponse {
+        TODO("Not yet implemented")
     }
 
-    override fun getByIdFromRemote(id: Int): Flow<CharacterInfoResponse> {
-        Log.d(TAG, "getting from remote")
-        return remoteDataSource.getById(id)
+    override fun getPreviewFromRemote(): CharsPrevResponse {
+        TODO("Not yet implemented")
     }
 
-    override fun getAllFromRemote(): Flow<CharacterPreviewResponse> {
-        Log.d(TAG, "getting from remote")
-        return remoteDataSource.getAll()
+    override fun getPreviewFromLocal(): CharsPrevResponse {
+        TODO("Not yet implemented")
     }
+
+    override fun getComicsFromRemote(): ComicsPrevResponse {
+        TODO("Not yet implemented")
+    }
+
+    override fun getComicsFromLocal(): ComicsPrevResponse {
+        TODO("Not yet implemented")
+    }
+
+    override fun getEventsFromRemote(): EventsPrevResponse {
+        TODO("Not yet implemented")
+    }
+
+    override fun getEventsFromLocal(): EventsPrevResponse {
+        TODO("Not yet implemented")
+    }
+
+    override fun getStoriesFromRemote(): StoriesPrevResponse {
+        TODO("Not yet implemented")
+    }
+
+    override fun getStoriesFromLocal(): StoriesPrevResponse {
+        TODO("Not yet implemented")
+    }
+
+    override fun getSeriesFromRemote(): SeriesPrevResponse {
+        TODO("Not yet implemented")
+    }
+
+    override fun getSeriesFromLocal(): SeriesPrevResponse {
+        TODO("Not yet implemented")
+    }
+
 }

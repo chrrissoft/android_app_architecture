@@ -1,56 +1,50 @@
 package com.chrrissoft.marvel.framework.characters.datasource
 
 import com.chrrissoft.marvel.data.characters.CharacterDataSource.RemoteCharacterDataSource
-import com.chrrissoft.marvel.data.characters.response.CharacterInfoResponse.RemoteCharacterInfoResponse
-import com.chrrissoft.marvel.data.characters.response.CharacterPreviewResponse.RemoteCharacterPreviewResponse
-import com.chrrissoft.marvel.framework.characters.CharacterAPIService
-import com.chrrissoft.marvel.framework.characters.models.info.CharacterInfo
-import com.chrrissoft.marvel.framework.characters.response.info.remote.ApiCharacterInfoResponse
-import com.chrrissoft.marvel.framework.characters.response.info.remote.ApiInfoError
-import com.chrrissoft.marvel.framework.characters.response.info.remote.ApiInfoLoading
-import com.chrrissoft.marvel.framework.characters.response.preview.remote.ApiCharacterPreviewResponse
-import com.chrrissoft.marvel.framework.characters.response.preview.remote.ApiPreviewError
-import com.chrrissoft.marvel.framework.characters.response.preview.remote.ApiPreviewLoading
+import com.chrrissoft.marvel.data.characters.CharacterResponse
+import com.chrrissoft.marvel.data.characters.CharsPrevResState
+import com.chrrissoft.marvel.data.characters.CharsPrevResState.*
+import com.chrrissoft.marvel.data.characters.CharsPrevResponse
+import com.chrrissoft.marvel.data.comics.ComicsPrevResponse
+import com.chrrissoft.marvel.data.events.EventsPrevResponse
+import com.chrrissoft.marvel.data.series.SeriesPrevResponse
+import com.chrrissoft.marvel.data.stories.StoriesPrevResponse
+import com.chrrissoft.marvel.framework.characters.api.CharacterAPIService
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class RemoteCharacterDataSourceImp @Inject constructor(
-    private val characterAPIService: CharacterAPIService
+    private val api: CharacterAPIService
 ) : RemoteCharacterDataSource {
 
-    override fun getById(id: Int): Flow<RemoteCharacterInfoResponse> {
-        return flow {
-            try {
-                emit(ApiInfoLoading)
-                emit(
-                    ApiCharacterInfoResponse(
-                        characterAPIService
-                            .getById(id).body()
-                            ?.data?.results
-                            ?.first() ?: CharacterInfo()
-                    )
-                )
-            } catch (e: Exception) {
-                emit(ApiInfoError)
-            }
+    override fun getPreviews(): Flow<CharsPrevResponse> = flow {
+        try {
+            emit(CharsPrevResponse(CharsPrevLoading()))
+
+            val apiResult = api.getPreview().body()?.data?.results ?: emptyList()
+
+            emit(CharsPrevResponse(CharsPrevSuccess(apiResult)))
+
+        } catch (e: Exception) {
+            emit(CharsPrevResponse(CharsPrevError(e)))
         }
     }
 
-    override fun getAll(): Flow<RemoteCharacterPreviewResponse> {
-        return flow {
-            try {
-                emit(ApiPreviewLoading)
-                emit(
-                    ApiCharacterPreviewResponse(
-                        prev = characterAPIService.getAll().body()
-                            ?.data?.results ?: emptyList()
-                    )
-                )
-            } catch (e: Exception) {
-                emit(ApiPreviewError)
-            }
-        }
+    override fun getComics(): Flow<ComicsPrevResponse> {
+        TODO("Not yet implemented")
+    }
+
+    override fun getSeries(): Flow<SeriesPrevResponse> {
+        TODO("Not yet implemented")
+    }
+
+    override fun getStories(): Flow<StoriesPrevResponse> {
+        TODO("Not yet implemented")
+    }
+
+    override fun getEvents(): Flow<EventsPrevResponse> {
+        TODO("Not yet implemented")
     }
 
 }

@@ -2,8 +2,7 @@ package com.chrrissoft.marvel.di
 
 import android.content.Context
 import androidx.room.Room
-import com.chrrissoft.marvel.framework.characters.database.info.CharacterInfoDao
-import com.chrrissoft.marvel.framework.characters.database.preview.CharacterPreviewDao
+import com.chrrissoft.marvel.framework.characters.db.CharacterDao
 import com.chrrissoft.marvel.framework.Database
 import dagger.Module
 import dagger.Provides
@@ -30,9 +29,6 @@ class DatabaseModule {
 
     @Singleton
     @Provides
-    fun provideCharactersPrevDao(db: Database): CharacterPreviewDao = db.characterPrevDao()
-
-    @Singleton
-    @Provides
-    fun provideCharactersInfoDao(db: Database): CharacterInfoDao = db.characterInfoDao()
+    fun provideCharactersDao(db: Database): CharacterDao = db.characterDao()
 }
+

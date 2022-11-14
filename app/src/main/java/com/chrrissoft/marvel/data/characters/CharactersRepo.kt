@@ -1,15 +1,27 @@
 package com.chrrissoft.marvel.data.characters
 
-import com.chrrissoft.marvel.data.characters.response.CharacterInfoResponse
-import com.chrrissoft.marvel.data.characters.response.CharacterPreviewResponse
-import kotlinx.coroutines.flow.Flow
+import com.chrrissoft.marvel.data.comics.ComicsPrevResponse
+import com.chrrissoft.marvel.data.events.EventsPrevResponse
+import com.chrrissoft.marvel.data.series.SeriesPrevResponse
+import com.chrrissoft.marvel.data.stories.StoriesPrevResponse
+
 
 interface CharactersRepo {
+    fun getFromLocal() : CharacterResponse
+    fun getFromRemote() : CharacterResponse
 
-    fun getByIdFromLocale(id: Int) : Flow<CharacterInfoResponse>
-    fun getAllFromLocale() : Flow<CharacterPreviewResponse>
+    fun getPreviewFromRemote() : CharsPrevResponse
+    fun getPreviewFromLocal() : CharsPrevResponse
 
-    fun getByIdFromRemote(id: Int) : Flow<CharacterInfoResponse>
-    fun getAllFromRemote() : Flow<CharacterPreviewResponse>
+    fun getComicsFromRemote() : ComicsPrevResponse
+    fun getComicsFromLocal() : ComicsPrevResponse
 
+    fun getEventsFromRemote() : EventsPrevResponse
+    fun getEventsFromLocal() : EventsPrevResponse
+
+    fun getStoriesFromRemote() : StoriesPrevResponse
+    fun getStoriesFromLocal() : StoriesPrevResponse
+
+    fun getSeriesFromRemote() : SeriesPrevResponse
+    fun getSeriesFromLocal() : SeriesPrevResponse
 }
