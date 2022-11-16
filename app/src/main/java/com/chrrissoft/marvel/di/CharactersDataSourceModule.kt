@@ -1,9 +1,8 @@
 package com.chrrissoft.marvel.di
 
-import com.chrrissoft.marvel.data.characters.CharacterDataSource.LocalCharacterDataSource
-import com.chrrissoft.marvel.data.characters.CharacterDataSource.RemoteCharacterDataSource
-import com.chrrissoft.marvel.framework.characters.datasource.LocalCharacterDataSourceImpl
-import com.chrrissoft.marvel.framework.characters.datasource.RemoteCharacterDataSourceImp
+import com.chrrissoft.marvel.data.chars.CharacterDataSource
+import com.chrrissoft.marvel.framework.chars.datasource.LocalCharacterDataSourceImpl
+import com.chrrissoft.marvel.framework.chars.datasource.RemoteCharacterDataSourceImp
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -16,10 +15,10 @@ abstract class CharactersDataSourceModule {
     @Binds
     abstract fun provideLocalDataSource(
         local: LocalCharacterDataSourceImpl
-    ) : LocalCharacterDataSource
+    ) : CharacterDataSource
 
     @Binds
     abstract fun provideRemoteDataSource(
         remote: RemoteCharacterDataSourceImp
-    ) : RemoteCharacterDataSource
+    ) : CharacterDataSource
 }

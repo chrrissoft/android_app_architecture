@@ -1,6 +1,5 @@
 package com.chrrissoft.marvel.framework.comics.api
 
-import com.chrrissoft.marvel.framework.series.api.ComicsData
 import com.google.gson.annotations.SerializedName
 
 

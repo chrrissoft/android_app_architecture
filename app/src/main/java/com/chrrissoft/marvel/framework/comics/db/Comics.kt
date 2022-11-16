@@ -17,7 +17,7 @@ data class Comics(
     @ColumnInfo(name = "stories") val stories: List<StoriesPreview>,
     @ColumnInfo(name = "series") val characters: List<CharacterPreview>,
 ) {
-    internal companion object {
-        const val COMICS_TABLE = "characters_table"
+    companion object {
+        internal const val COMICS_TABLE = "characters_table"
     }
 }

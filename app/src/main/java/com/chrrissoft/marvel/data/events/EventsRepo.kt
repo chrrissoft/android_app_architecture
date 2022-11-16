@@ -1,29 +1,31 @@
 package com.chrrissoft.marvel.data.events
 
-import com.chrrissoft.marvel.data.characters.CharsPrevResponse
-import com.chrrissoft.marvel.data.comics.ComicsPrevResponse
-import com.chrrissoft.marvel.data.series.SeriesPrevResponse
-import com.chrrissoft.marvel.data.stories.StoriesPrevResponse
+import com.chrrissoft.marvel.data.chars.res.CharsPrevRes
+import com.chrrissoft.marvel.data.comics.res.ComicsPrevRes
+import com.chrrissoft.marvel.data.events.res.EventRes
+import com.chrrissoft.marvel.data.events.res.EventsPrevRes
+import com.chrrissoft.marvel.data.series.res.SeriesPrevRes
+import com.chrrissoft.marvel.data.stories.res.StoriesPrevRes
 
 
 interface EventsRepo {
 
-    fun getFromLocal() : EventResponse
-    fun getFromRemote() : EventResponse
+    fun getFromLocal() : EventRes
+    fun getFromRemote() : EventRes
 
-    fun getPreviewFromRemote() : EventsPrevResponse
-    fun getPreviewFromLocal() : EventsPrevResponse
+    fun getPreviewFromRemote() : EventsPrevRes
+    fun getPreviewFromLocal() : EventsPrevRes
 
-    fun getComicsFromRemote() : ComicsPrevResponse
-    fun getComicsFromLocal() : ComicsPrevResponse
+    fun getComicsFromRemote() : ComicsPrevRes
+    fun getComicsFromLocal() : ComicsPrevRes
 
-    fun getStoriesFromRemote() : StoriesPrevResponse
-    fun getStoriesFromLocal() : StoriesPrevResponse
+    fun getStoriesFromRemote() : StoriesPrevRes
+    fun getStoriesFromLocal() : StoriesPrevRes
 
-    fun getCharactersFromRemote() : CharsPrevResponse
-    fun getCharactersFromLocal() : CharsPrevResponse
+    fun getCharactersFromRemote() : CharsPrevRes
+    fun getCharactersFromLocal() : CharsPrevRes
 
-    fun getSeriesFromRemote() : SeriesPrevResponse
-    fun getSeriesFromLocal() : SeriesPrevResponse
+    fun getSeriesFromRemote() : SeriesPrevRes
+    fun getSeriesFromLocal() : SeriesPrevRes
 
 }

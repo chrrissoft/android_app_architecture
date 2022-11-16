@@ -2,7 +2,7 @@ package com.chrrissoft.marvel.framework
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.chrrissoft.marvel.framework.characters.db.CharacterDao
+import com.chrrissoft.marvel.framework.chars.db.CharacterDao
 
 @Database(
     entities = [], version = 1

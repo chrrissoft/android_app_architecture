@@ -1,6 +1,6 @@
 package com.chrrissoft.marvel.framework.events.api
 
-import com.chrrissoft.marvel.data.preview.EventPreview
+import com.chrrissoft.marvel.data.events.EventPreview
 import com.chrrissoft.marvel.framework.common.Thumbnail
 import com.google.gson.annotations.SerializedName
 

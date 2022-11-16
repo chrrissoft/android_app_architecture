@@ -1,7 +1,6 @@
 package com.chrrissoft.marvel.framework.comics.api
 
-import com.chrrissoft.marvel.framework.characters.api.Characters
-import com.chrrissoft.marvel.framework.series.api.Comics
+import com.chrrissoft.marvel.framework.chars.api.Characters
 import retrofit2.Response
 import retrofit2.http.GET
 

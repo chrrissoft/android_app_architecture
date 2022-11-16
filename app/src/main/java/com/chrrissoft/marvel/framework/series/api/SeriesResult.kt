@@ -1,6 +1,6 @@
 package com.chrrissoft.marvel.framework.series.api
 
-import com.chrrissoft.marvel.data.preview.SeriesPreview
+import com.chrrissoft.marvel.data.series.SeriesPreview
 import com.chrrissoft.marvel.framework.common.Thumbnail
 import com.google.gson.annotations.SerializedName
 

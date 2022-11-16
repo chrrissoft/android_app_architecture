@@ -1,22 +1,29 @@
 package com.chrrissoft.marvel.data.series
 
-import com.chrrissoft.marvel.data.preview.*
-import com.chrrissoft.marvel.ui.data.Series
+import com.chrrissoft.marvel.data.chars.res.charsPrevConverter
+import com.chrrissoft.marvel.data.chars.res.CharsPrevRes
+import com.chrrissoft.marvel.data.comics.res.comicsPrevConverter
+import com.chrrissoft.marvel.data.comics.res.ComicsPrevRes
+import com.chrrissoft.marvel.data.events.res.eventsPrevConverter
+import com.chrrissoft.marvel.data.events.res.EventsPrevRes
+import com.chrrissoft.marvel.data.stories.res.StoriesPrevRes
+import com.chrrissoft.marvel.data.stories.res.storiesPrevConverter
+import com.chrrissoft.marvel.ui.data.series.Series
 
 interface Series {
     val title: String
     val image: Any
-    val events: List<EventPreview>
-    val comics: List<ComicPreview>
-    val stories: List<StoriesPreview>
-    val characters: List<CharacterPreview>
+    val events: EventsPrevRes
+    val comics: ComicsPrevRes
+    val stories: StoriesPrevRes
+    val characters: CharsPrevRes
 
     fun toUi() = Series(
         title = title,
         image = image,
-        events = events.map { it.toUi() },
-        comics = comics.map { it.toUi() },
-        stories = stories.map { it.toUi() },
-        characters = characters.map { it.toUi() },
+        events = eventsPrevConverter(events),
+        comics = comicsPrevConverter(comics),
+        stories = storiesPrevConverter(stories),
+        characters = charsPrevConverter(characters),
     )
 }

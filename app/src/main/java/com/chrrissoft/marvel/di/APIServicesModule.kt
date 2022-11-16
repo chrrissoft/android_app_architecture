@@ -1,6 +1,6 @@
 package com.chrrissoft.marvel.di
 
-import com.chrrissoft.marvel.framework.characters.api.CharacterAPIService
+import com.chrrissoft.marvel.framework.chars.api.CharacterAPIService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
