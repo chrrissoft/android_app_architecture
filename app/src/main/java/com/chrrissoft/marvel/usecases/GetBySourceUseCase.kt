@@ -6,7 +6,6 @@ import com.chrrissoft.marvel.data.netstate.NetState.*
 import com.chrrissoft.marvel.usecases.GetBySourceUseCase.GetBySource.LOCAL
 import com.chrrissoft.marvel.usecases.GetBySourceUseCase.GetBySource.REMOTE
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -28,7 +27,7 @@ class GetBySourceUseCase @Inject constructor(
         withContext(IO) { observer() }
 
     private fun CoroutineScope.observer() {
-        launch() {
+        launch {
             netObserver.observe().collect { update(it) }
         }
     }

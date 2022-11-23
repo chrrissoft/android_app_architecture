@@ -5,7 +5,8 @@ import com.chrrissoft.marvel.data.comics.ComicPreview
 sealed interface ComicsPrevResState {
 
     data class Error(
-        val message: Exception
+        val data: List<ComicPreview>,
+        val message: Exception? = null
     ) : ComicsPrevResState
 
     data class Success(
@@ -13,8 +14,8 @@ sealed interface ComicsPrevResState {
     ) : ComicsPrevResState
 
     data class Loading(
-        val message: Nothing? = null
-    ) : ComicsPrevResState
+        val data: List<ComicPreview>,
+        ) : ComicsPrevResState
 
 }
 

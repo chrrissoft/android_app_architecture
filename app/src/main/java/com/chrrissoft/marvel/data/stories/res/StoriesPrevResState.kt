@@ -6,7 +6,8 @@ import com.chrrissoft.marvel.data.stories.StoriesPreview
 sealed interface StoriesPrevResState {
 
     data class Error(
-        val message: Exception
+        val data: List<StoriesPreview>,
+        val message: Exception? = null,
     ) : StoriesPrevResState
 
     data class Success(
@@ -14,8 +15,8 @@ sealed interface StoriesPrevResState {
     ) : StoriesPrevResState
 
     data class Loading(
-        val message: Nothing? = null
-    ) : StoriesPrevResState
+        val data: List<StoriesPreview>,
+        ) : StoriesPrevResState
 
 }
 

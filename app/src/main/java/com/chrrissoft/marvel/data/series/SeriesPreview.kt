@@ -1,6 +1,6 @@
 package com.chrrissoft.marvel.data.series
 
-import com.chrrissoft.marvel.ui.data.series.SeriesPreview
+import com.chrrissoft.marvel.ui.series.SeriesPreview
 
 interface SeriesPreview {
     val id: Int

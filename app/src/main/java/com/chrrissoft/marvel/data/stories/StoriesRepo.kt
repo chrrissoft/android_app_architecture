@@ -1,31 +1,35 @@
 package com.chrrissoft.marvel.data.stories
 
+import com.chrrissoft.marvel.data.chars.res.CharRes
 import com.chrrissoft.marvel.data.chars.res.CharsPrevRes
+import com.chrrissoft.marvel.data.comics.res.ComicRes
 import com.chrrissoft.marvel.data.comics.res.ComicsPrevRes
+import com.chrrissoft.marvel.data.events.res.EventRes
 import com.chrrissoft.marvel.data.events.res.EventsPrevRes
+import com.chrrissoft.marvel.data.series.res.SerieRes
 import com.chrrissoft.marvel.data.series.res.SeriesPrevRes
 import com.chrrissoft.marvel.data.stories.res.StoriesPrevRes
 import com.chrrissoft.marvel.data.stories.res.StoryRes
+import kotlinx.coroutines.flow.Flow
 
 
 interface StoriesRepo {
 
-    fun getFromLocal() : StoryRes
-    fun getFromRemote() : StoryRes
+    enum class Source { REMOTE, LOCAL }
 
-    fun getPreviewFromRemote() : StoriesPrevRes
-    fun getPreviewFromLocal() : StoriesPrevRes
+    fun get(source: Source): Flow<StoryRes>
+    fun getPreviews(source: Source): Flow<StoriesPrevRes>
 
-    fun getEventsFromRemote() : EventsPrevRes
-    fun getEventsFromLocal() : EventsPrevRes
+    fun getChars(source: Source): Flow<CharsPrevRes>
+    fun geChar(source: Source): Flow<CharRes>
 
-    fun getCharactersFromRemote() : CharsPrevRes
-    fun getCharactersFromLocal() : CharsPrevRes
+    fun getComics(source: Source): Flow<ComicsPrevRes>
+    fun getComic(source: Source): Flow<ComicRes>
 
-    fun getSeriesFromRemote() : SeriesPrevRes
-    fun getSeriesFromLocal() : SeriesPrevRes
+    fun getStories(source: Source): Flow<SeriesPrevRes>
+    fun getStory(source: Source): Flow<SerieRes>
 
-    fun getComicsFromRemote() : ComicsPrevRes
-    fun getComicsFromLocal() : ComicsPrevRes
+    fun getEvents(source: Source): Flow<EventsPrevRes>
+    fun getEvent(source: Source): Flow<EventRes>
 
 }

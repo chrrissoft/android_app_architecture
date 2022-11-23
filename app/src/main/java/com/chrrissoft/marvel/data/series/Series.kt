@@ -8,7 +8,7 @@ import com.chrrissoft.marvel.data.events.res.eventsPrevConverter
 import com.chrrissoft.marvel.data.events.res.EventsPrevRes
 import com.chrrissoft.marvel.data.stories.res.StoriesPrevRes
 import com.chrrissoft.marvel.data.stories.res.storiesPrevConverter
-import com.chrrissoft.marvel.ui.data.series.Series
+import com.chrrissoft.marvel.ui.series.Serie
 
 interface Series {
     val title: String
@@ -18,7 +18,7 @@ interface Series {
     val stories: StoriesPrevRes
     val characters: CharsPrevRes
 
-    fun toUi() = Series(
+    fun toUi() = Serie(
         title = title,
         image = image,
         events = eventsPrevConverter(events),

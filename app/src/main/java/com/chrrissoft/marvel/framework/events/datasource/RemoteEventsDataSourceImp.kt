@@ -7,28 +7,29 @@ import com.chrrissoft.marvel.data.events.res.EventsPrevRes
 import com.chrrissoft.marvel.data.series.res.SeriesPrevRes
 import com.chrrissoft.marvel.data.stories.res.StoriesPrevRes
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.emptyFlow
 import javax.inject.Inject
 
 class RemoteEventsDataSourceImp @Inject constructor(
 ) : RemoteEventsDataSource {
     override fun getPreviews(): Flow<EventsPrevRes> {
-        TODO("Not yet implemented")
+        return emptyFlow()
     }
 
     override fun getCharacters(): Flow<CharsPrevRes> {
-        TODO("Not yet implemented")
+        return emptyFlow()
     }
 
     override fun getSeries(): Flow<SeriesPrevRes> {
-        TODO("Not yet implemented")
+        return emptyFlow()
     }
 
     override fun getStories(): Flow<StoriesPrevRes> {
-        TODO("Not yet implemented")
+        return emptyFlow()
     }
 
     override fun getComics(): Flow<ComicsPrevRes> {
-        TODO("Not yet implemented")
+        return emptyFlow()
     }
 
 }

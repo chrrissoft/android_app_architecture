@@ -8,7 +8,7 @@ import com.chrrissoft.marvel.data.series.res.SeriesPrevRes
 import com.chrrissoft.marvel.data.series.res.seriesPrevConverter
 import com.chrrissoft.marvel.data.stories.res.StoriesPrevRes
 import com.chrrissoft.marvel.data.stories.res.storiesPrevConverter
-import com.chrrissoft.marvel.ui.data.events.Event
+import com.chrrissoft.marvel.ui.events.Event
 
 
 interface Event {

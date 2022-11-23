@@ -1,6 +1,6 @@
 package com.chrrissoft.marvel.data.events
 
-import com.chrrissoft.marvel.ui.data.events.EventPreview
+import com.chrrissoft.marvel.ui.events.EventPreview
 
 interface EventPreview {
     val id: Int

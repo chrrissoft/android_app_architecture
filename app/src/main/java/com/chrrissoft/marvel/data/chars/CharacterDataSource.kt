@@ -9,15 +9,17 @@ import kotlinx.coroutines.flow.Flow
 
 interface CharacterDataSource {
 
+    fun get(id: Int) : Flow<CharsPreview>
+
     fun getPreviews() : Flow<CharsPrevRes>
 
-    fun getComics() : Flow<ComicsPrevRes>
+    fun getComics(id: Int) : Flow<ComicsPrevRes>
 
-    fun getSeries() : Flow<SeriesPrevRes>
+    fun getSeries(id: Int) : Flow<SeriesPrevRes>
 
-    fun getStories() : Flow<StoriesPrevRes>
+    fun getStories(id: Int) : Flow<StoriesPrevRes>
 
-    fun getEvents() : Flow<EventsPrevRes>
+    fun getEvents(id: Int) : Flow<EventsPrevRes>
 
     interface RemoteCharacterDataSource : CharacterDataSource
     interface LocalCharacterDataSource : CharacterDataSource

@@ -5,7 +5,6 @@ import android.content.Context
 import android.content.Context.CONNECTIVITY_SERVICE
 import android.net.ConnectivityManager
 import android.net.Network
-import com.chrrissoft.marvel.MarvelApp
 import com.chrrissoft.marvel.data.netstate.NetObserver
 import com.chrrissoft.marvel.data.netstate.NetState
 import com.chrrissoft.marvel.data.netstate.NetState.*

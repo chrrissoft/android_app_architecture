@@ -5,7 +5,8 @@ import com.chrrissoft.marvel.data.series.SeriesPreview
 sealed interface SeriesPrevResState {
 
     data class Error(
-        val message: Exception
+        val data: List<SeriesPreview>,
+        val message: Exception? = null
     ) : SeriesPrevResState
 
     data class Success(
@@ -13,7 +14,7 @@ sealed interface SeriesPrevResState {
     ) : SeriesPrevResState
 
     data class Loading(
-        val message: Nothing? = null
-    ) : SeriesPrevResState
+        val data: List<SeriesPreview>,
+        ) : SeriesPrevResState
 
 }

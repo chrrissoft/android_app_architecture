@@ -8,31 +8,31 @@ import com.chrrissoft.marvel.data.stories.StoriesDataSource
 import com.chrrissoft.marvel.data.stories.res.StoriesPrevRes
 import com.chrrissoft.marvel.framework.stories.api.StoriesAPIService
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.emptyFlow
 import javax.inject.Inject
 
 class RemoteStoriesDataSourceImp @Inject constructor(
     private val api: StoriesAPIService
 ) : StoriesDataSource.RemoteStoriesDataSource {
 
-
     override fun getComics(): Flow<ComicsPrevRes> {
-        TODO("Not yet implemented")
+        return emptyFlow()
     }
 
     override fun getPreview(): Flow<StoriesPrevRes> {
-        TODO("Not yet implemented")
+        return emptyFlow()
     }
 
     override fun getCharacters(): Flow<CharsPrevRes> {
-        TODO("Not yet implemented")
+        return emptyFlow()
     }
 
     override fun getSeries(): Flow<SeriesPrevRes> {
-        TODO("Not yet implemented")
+        return emptyFlow()
     }
 
     override fun getEvents(): Flow<EventsPrevRes> {
-        TODO("Not yet implemented")
+        return emptyFlow()
     }
 
 }

@@ -1,6 +1,7 @@
 package com.chrrissoft.marvel.framework.chars.datasource
 
 import com.chrrissoft.marvel.data.chars.CharacterDataSource.LocalCharacterDataSource
+import com.chrrissoft.marvel.data.chars.CharsPreview
 import com.chrrissoft.marvel.data.chars.res.CharsPrevRes
 import com.chrrissoft.marvel.data.comics.res.ComicsPrevRes
 import com.chrrissoft.marvel.data.events.res.EventsPrevRes
@@ -13,24 +14,28 @@ import javax.inject.Inject
 class LocalCharacterDataSourceImpl @Inject constructor(
 
 ) : LocalCharacterDataSource {
+    override fun get(id: Int): Flow<CharsPreview> {
+        return emptyFlow()
+    }
+
     override fun getPreviews(): Flow<CharsPrevRes> {
         return emptyFlow()
     }
 
-    override fun getComics(): Flow<ComicsPrevRes> {
+    override fun getComics(id: Int): Flow<ComicsPrevRes> {
         return emptyFlow()
     }
 
 
-    override fun getSeries(): Flow<SeriesPrevRes> {
+    override fun getSeries(id: Int): Flow<SeriesPrevRes> {
         return emptyFlow()
     }
 
-    override fun getStories(): Flow<StoriesPrevRes> {
+    override fun getStories(id: Int): Flow<StoriesPrevRes> {
         return emptyFlow()
     }
 
-    override fun getEvents(): Flow<EventsPrevRes> {
+    override fun getEvents(id: Int): Flow<EventsPrevRes> {
         return emptyFlow()
     }
 

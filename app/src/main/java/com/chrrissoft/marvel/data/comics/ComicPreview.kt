@@ -1,11 +1,11 @@
 package com.chrrissoft.marvel.data.comics
 
-import com.chrrissoft.marvel.ui.data.comics.ComicPreview
+import com.chrrissoft.marvel.ui.comics.ComicsPreview
 
 interface ComicPreview {
     val id: Int
     val title: String
     val image: Any
 
-    fun toUi() = ComicPreview(id, title, image)
+    fun toUi() = ComicsPreview(id, title, image)
 }

@@ -5,7 +5,8 @@ import com.chrrissoft.marvel.data.events.EventPreview
 sealed interface EventsPrevResState {
 
     data class Error(
-        val message: Exception
+        val data: List<EventPreview>,
+        val message: Exception? = null
     ) : EventsPrevResState
 
     data class Success(
@@ -13,7 +14,7 @@ sealed interface EventsPrevResState {
     ) : EventsPrevResState
 
     data class Loading(
-        val message: Nothing? = null
+        val data: List<EventPreview>,
     ) : EventsPrevResState
 
 }

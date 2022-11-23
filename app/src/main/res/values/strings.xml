@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Marvel</string>
+    <string name="route_name__chars">Characters</string>
+    <string name="route_name__comics">Comics</string>
+    <string name="route_name__series">Series</string>
+    <string name="route_name__stories">Stories</string>
+    <string name="route_name__events">Events</string>
+
+
 </resources>
