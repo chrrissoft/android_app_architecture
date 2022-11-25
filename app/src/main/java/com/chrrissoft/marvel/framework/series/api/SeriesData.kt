@@ -1,11 +1,12 @@
 package com.chrrissoft.marvel.framework.series.api
 
-import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
-
+@Serializable
 data class SeriesData (
 
-  @SerializedName("total"   ) var total   : Int,
-  @SerializedName("results" ) var results : ArrayList<SeriesResult>
+  @SerialName("total"   ) var total   : Int,
+  @SerialName("results" ) var results : ArrayList<SeriesResult>
 
 )

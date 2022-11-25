@@ -15,4 +15,3 @@ abstract class CharsRepoModule {
     abstract fun provideRepo(repo: CharacterRepoImpl): CharsRepo
 
 }
-

@@ -2,13 +2,14 @@ package com.chrrissoft.marvel.framework.chars.api
 
 import com.chrrissoft.marvel.data.chars.CharsPreview
 import com.chrrissoft.marvel.framework.common.Thumbnail
-import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
-
+@Serializable
 data class CharacterResult(
-    @SerializedName("id") override val id: Int = 0,
-    @SerializedName("name") override val name: String,
-    @SerializedName("thumbnail") override val image: Thumbnail,
+    @SerialName("id") override val id: Int = 0,
+    @SerialName("name") override val name: String,
+    @SerialName("thumbnail") override val image: Thumbnail,
 ) : CharsPreview {
     companion object {
         val emptyResult = CharacterResult(

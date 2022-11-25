@@ -2,19 +2,19 @@ package com.chrrissoft.marvel.framework.db.converters
 
 import androidx.room.TypeConverter
 import com.chrrissoft.marvel.framework.db.EventPreview
-import com.chrrissoft.marvel.framework.db.myFromJson
-import com.google.gson.Gson
+import kotlinx.serialization.builtins.ListSerializer
+import kotlinx.serialization.json.Json
 
 class EventsConverter {
     @TypeConverter
     fun fromJson(json: String) : List<EventPreview> {
-        val gson = Gson()
-        return gson.myFromJson<List<EventPreview>>(json)
+        val gson = Json
+        return gson.decodeFromString(ListSerializer(EventPreview.serializer()), json)
     }
 
     @TypeConverter
     fun toJson(json: List<EventPreview>) : String {
-        val gson = Gson()
-        return gson.toJson(json, EventPreview::class.java)
+        val gson = Json
+        return gson.encodeToString(ListSerializer(EventPreview.serializer()), json)
     }
 }

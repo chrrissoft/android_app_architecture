@@ -1,7 +1,6 @@
 package com.chrrissoft.marvel.usecases.chars
 
 import com.chrrissoft.marvel.data.chars.CharsRepo
-import com.chrrissoft.marvel.data.chars.CharsRepo.Source
 import com.chrrissoft.marvel.data.chars.CharsRepo.Source.LOCAL
 import com.chrrissoft.marvel.data.chars.res.charsPrevConverter
 import com.chrrissoft.marvel.ui.chars.res.CharsPrevRes
@@ -29,7 +28,7 @@ class GetCharsPrevUseCase @Inject constructor(
     }
 
     private suspend fun getPreviews() {
-        repo.getPreviews(LOCAL).collect { res ->
+        repo.getChars(LOCAL).collect { res ->
             _res.update { charsPrevConverter(res) }
         }
     }

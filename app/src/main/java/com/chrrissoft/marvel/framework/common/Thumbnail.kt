@@ -1,11 +1,12 @@
 package com.chrrissoft.marvel.framework.common
 
-import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
-
+@Serializable
 data class Thumbnail (
 
-  @SerializedName("path"      ) var path      : String,
-  @SerializedName("extension" ) var extension : String
+  @SerialName("path"      ) var path      : String,
+  @SerialName("extension" ) var extension : String
 
 )

@@ -10,7 +10,7 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 
 @Composable
-fun Image(image: Any, modifier: Modifier) {
+fun Image(image: Any?, modifier: Modifier) {
     AsyncImage(
         model = ImageRequest.Builder(LocalContext.current)
             .data(image).crossfade(true).build(),

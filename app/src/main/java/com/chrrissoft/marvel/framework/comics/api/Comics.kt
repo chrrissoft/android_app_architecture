@@ -1,12 +1,13 @@
 package com.chrrissoft.marvel.framework.comics.api
 
-import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
-
+@Serializable
 data class Comics (
 
-  @SerializedName("code"  ) var code   : Int,
-  @SerializedName("status") var status : String,
-  @SerializedName("data"  ) var data   : ComicsData
+  @SerialName("code"  ) var code   : Int,
+  @SerialName("status") var status : String,
+  @SerialName("data"  ) var data   : ComicsData
 
 )

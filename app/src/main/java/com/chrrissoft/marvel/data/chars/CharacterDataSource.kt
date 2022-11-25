@@ -1,25 +1,23 @@
 package com.chrrissoft.marvel.data.chars
 
-import com.chrrissoft.marvel.data.chars.res.CharsPrevRes
-import com.chrrissoft.marvel.data.comics.res.ComicsPrevRes
-import com.chrrissoft.marvel.data.events.res.EventsPrevRes
-import com.chrrissoft.marvel.data.series.res.SeriesPrevRes
-import com.chrrissoft.marvel.data.stories.res.StoriesPrevRes
+import com.chrrissoft.marvel.data.comics.ComicPreview
+import com.chrrissoft.marvel.data.events.EventPreview
+import com.chrrissoft.marvel.data.series.SeriesPreview
+import com.chrrissoft.marvel.data.stories.StoriesPreview
+import com.chrrissoft.marvel.framework.chars.datasource.*
 import kotlinx.coroutines.flow.Flow
 
 interface CharacterDataSource {
 
-    fun get(id: Int) : Flow<CharsPreview>
+    fun getChars(offset: CharsOffset) : Flow<List<CharsPreview>>
 
-    fun getPreviews() : Flow<CharsPrevRes>
+    fun getComics(id: Int, offset: ComicsOffset) : Flow<List<ComicPreview>>
 
-    fun getComics(id: Int) : Flow<ComicsPrevRes>
+    fun getSeries(id: Int, offset: SeriesOffset) : Flow<List<SeriesPreview>>
 
-    fun getSeries(id: Int) : Flow<SeriesPrevRes>
+    fun getStories(id: Int, offset: StoriesOffset) : Flow<List<StoriesPreview>>
 
-    fun getStories(id: Int) : Flow<StoriesPrevRes>
-
-    fun getEvents(id: Int) : Flow<EventsPrevRes>
+    fun getEvents(id: Int, offset: EventsOffset) : Flow<List<EventPreview>>
 
     interface RemoteCharacterDataSource : CharacterDataSource
     interface LocalCharacterDataSource : CharacterDataSource

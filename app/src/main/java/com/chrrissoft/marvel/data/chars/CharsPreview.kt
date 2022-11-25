@@ -5,9 +5,9 @@ import com.chrrissoft.marvel.ui.chars.CharsPreview
 interface CharsPreview {
     val id: Int
     val name: String
-    val image: Any
+    val image: Any?
 
     fun toUi() = CharsPreview(id, name, convertImage())
 
-    fun convertImage() : Any
+    fun convertImage() : Any?
 }

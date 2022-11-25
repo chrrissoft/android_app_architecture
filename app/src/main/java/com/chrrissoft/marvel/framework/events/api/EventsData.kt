@@ -1,11 +1,12 @@
 package com.chrrissoft.marvel.framework.events.api
 
-import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
-
+@Serializable
 data class EventsData (
 
-  @SerializedName("total"   ) var total   : Int,
-  @SerializedName("results" ) var results : ArrayList<EventsResult>
+  @SerialName("total"   ) var total   : Int,
+  @SerialName("results" ) var results : ArrayList<EventsResult>
 
 )

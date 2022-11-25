@@ -14,7 +14,7 @@ import androidx.compose.ui.unit.sp
 
 @Composable
 internal fun Preview(
-    image: Any,
+    image: Any?,
     title: String,
     appearances: @Composable ColumnScope.() -> Unit
 ) {

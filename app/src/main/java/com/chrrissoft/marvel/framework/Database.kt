@@ -13,16 +13,17 @@ import com.chrrissoft.marvel.framework.stories.db.Stories
 
 @Database(
     entities = [
-        Series::class, Characters::class, Comics::class, Events::class, Stories::class
+        Characters::class, /*Comics::class,
+        Series::class, Stories::class, Events::class,*/
     ], version = 1
 )
+
 @TypeConverters(
-    CharsConverter::class,
-    BitmapConverter::class,
+//    CharsConverter::class,
     ComicsConverter::class,
-    SeriesConverter::class,
+/*    SeriesConverter::class,
     EventsConverter::class,
-    StoriesConverter::class,
+    StoriesConverter::class,*/
 )
 abstract class Database : RoomDatabase() {
     abstract fun characterDao(): CharacterDao

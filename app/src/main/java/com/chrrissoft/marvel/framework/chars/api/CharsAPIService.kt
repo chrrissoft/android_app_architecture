@@ -20,34 +20,34 @@ interface CharsAPIService {
     @GET("v1/public/characters?$TS$APIKEY$HASH")
     suspend fun getPreview(
         @Query("offset") offset: Int,
-        @Query("offset") limit: Int = 20
+        @Query("limit") limit: Int = 20
     ): Response<Characters>
 
     @GET("v1/public/characters/{id}/comics?$TS$APIKEY$HASH")
     suspend fun getComics(
         @Path("id") id: Int,
         @Query("offset") offset: Int,
-        @Query("offset") limit: Int = 20
+        @Query("limit") limit: Int = 20
     ): Response<Comics>
 
     @GET("v1/public/characters/{id}/events?$TS$APIKEY$HASH")
     suspend fun getEvents(
         @Path("id") id: Int,
         @Query("offset") offset: Int,
-        @Query("offset") limit: Int = 20
+        @Query("limit") limit: Int = 20
     ): Response<Events>
 
     @GET("v1/public/characters/{id}/series?$TS$APIKEY$HASH")
     suspend fun getSeries(
         @Path("id") id: Int,
         @Query("offset") offset: Int,
-        @Query("offset") limit: Int = 20
+        @Query("limit") limit: Int = 20
     ): Response<Series>
 
     @GET("v1/public/characters/{id}/stories?$TS$APIKEY$HASH")
     suspend fun getStories(
         @Path("id") id: Int,
         @Query("offset") offset: Int,
-        @Query("offset") limit: Int = 20
+        @Query("limit") limit: Int = 20
     ): Response<Stories>
 }
