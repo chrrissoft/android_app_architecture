@@ -41,7 +41,4 @@ class GetComicsPrevUseCase @Inject constructor(
         }
     }
 
-    suspend fun initGetBySourceUseCase() {
-        withContext(IO) { getBySourceUseCase() }
-    }
 }

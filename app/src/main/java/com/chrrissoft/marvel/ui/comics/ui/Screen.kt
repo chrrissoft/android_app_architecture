@@ -1,23 +1,23 @@
 package com.chrrissoft.marvel.ui.comics.ui
 
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.*
-import androidx.compose.material3.MaterialTheme.colorScheme
-import androidx.compose.material3.NavigationBarDefaults.containerColor
 import androidx.compose.runtime.*
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.chrrissoft.marvel.R.string.route_name__comics
 import com.chrrissoft.marvel.ui.comics.ComicsViewModel
 import com.chrrissoft.marvel.ui.common.ScreenPage.INFO
 import com.chrrissoft.marvel.ui.common.ScreenPage.PREVIEW
-import com.chrrissoft.marvel.ui.components.MarvelNavigationBar
-import com.chrrissoft.marvel.ui.components.MarvelScaffold
-import com.chrrissoft.marvel.ui.components.MarvelTopAppBar
-import com.chrrissoft.marvel.ui.components.NavigationBarColors
-import com.chrrissoft.marvel.ui.components.drawer.DrawerSheetColors
+import com.chrrissoft.marvel.ui.components.*
+import com.chrrissoft.marvel.ui.components.drawer.MarvelDrawerSheetColors
 import com.chrrissoft.marvel.ui.components.drawer.MarvelDrawer
+import com.chrrissoft.marvel.ui.components.drawer.MarvelNavigationDrawerItemColors
+import com.chrrissoft.marvel.ui.components.scafoold.MarvelTopAppBar
+import com.chrrissoft.marvel.ui.components.scafoold.MarvelTopAppBarColors
 import com.chrrissoft.marvel.ui.navigation.Screens
-import com.chrrissoft.marvel.ui.navigation.Screens.CharsScreen
+import com.chrrissoft.marvel.ui.navigation.Screens.ComicsScreen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -25,57 +25,44 @@ fun ComicsScreen(
     viewModel: ComicsViewModel = hiltViewModel(),
     drawerState: DrawerState,
     onOpenDrawer: () -> Unit,
+    onCloseDrawer: () -> Unit,
     onNavigate: (Screens) -> Unit,
 ) {
     val state by viewModel.uiState.collectAsState()
 
-    val containerColor = containerColor
-    val contentColor = colorScheme.contentColorFor(containerColor)
-
-    val navigationBarColors = NavigationBarColors(
-        contentColor = contentColor,
-        containerColor = containerColor
-    )
-
-    val drawerContainerColor = colorScheme.surface
-    val drawerContentColor = contentColorFor(drawerContainerColor)
-
-    val drawerSheetColors = DrawerSheetColors(
-        drawerContainerColor = drawerContainerColor,
-        drawerContentColor = drawerContentColor,
-    )
-
     MarvelDrawer(
-        item = CharsScreen,
+        item = ComicsScreen,
         drawerState = drawerState,
-        sheetColors = drawerSheetColors,
-        itemColors = NavigationDrawerItemDefaults.colors(),
-        onItemsChange = { onNavigate(it) }
+        onItemsChange = onNavigate,
+        onCloseDrawer = onCloseDrawer,
+        sheetColors = MarvelDrawerSheetColors.default(),
+        itemColors = MarvelNavigationDrawerItemColors.default(),
     ) {
         MarvelScaffold(
             topAppBar = {
                 MarvelTopAppBar(
                     title = stringResource(route_name__comics),
-                    colors = TopAppBarDefaults.topAppBarColors()
+                    colors = MarvelTopAppBarColors.default()
                 ) { onOpenDrawer() }
             },
             navigationBar = {
                 MarvelNavigationBar(
                     screenPage = state.screenPage,
-                    barColors = navigationBarColors,
-                    itemColors = NavigationBarItemDefaults.colors(),
+                    barColors = MarvelNavBarColors.default(),
+                    itemColors = MarvelNavBarItemColors.default(),
                     onScreenPageChange = { viewModel.changeScreenState(it) }
                 )
             }
         ) {
             when (state.screenPage) {
-                PREVIEW -> ComicsPreviewPage(
-                    state.previews,
-                    state.previewResState
-                ) {
-                    viewModel.load()
+                PREVIEW -> ComicsPreviewPage(state.previews, Modifier.padding(it)) {
+
                 }
-                INFO -> ComicInfoPage(state.info, state.infoResState)
+                INFO -> {
+                    ComicsInfoPage(state.info, Modifier.padding(it)) {
+
+                    }
+                }
             }
         }
     }

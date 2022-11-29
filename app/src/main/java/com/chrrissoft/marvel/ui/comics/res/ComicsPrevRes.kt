@@ -1,8 +1,8 @@
 package com.chrrissoft.marvel.ui.comics.res
 
-import com.chrrissoft.marvel.ui.comics.res.ComicsPrevResState.Loading
+import com.chrrissoft.marvel.ui.comics.res.ComicsPrevResState.Error
 
 data class ComicsPrevRes(
-    val state: ComicsPrevResState = Loading(emptyList())
+    val state: ComicsPrevResState = Error()
 )
 

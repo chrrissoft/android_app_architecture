@@ -19,24 +19,15 @@ fun App() {
 
     NavHost(navController, CharsScreen.route) {
 
-        charsScreen(drawerState, appScope) {
-            navController.navigate(it.route)
-        }
+        charsScreen(drawerState, appScope) { navController.navigate(it.route) }
 
-        comicsScreen(drawerState, appScope) {
-            navController.navigate(it.route)
-        }
+        comicsScreen(drawerState, appScope) { navController.navigate(it.route) }
 
-        eventsScreen(drawerState, appScope) {
-            navController.navigate(it.route)
-        }
+        seriesScreen(drawerState, appScope) { navController.navigate(it.route) }
 
-        seriesScreen(drawerState, appScope) {
-            navController.navigate(it.route)
-        }
+        storiesScreen(drawerState, appScope) { navController.navigate(it.route) }
 
-        storiesScreen(drawerState, appScope) {
-            navController.navigate(it.route)
-        }
+        eventsScreen(drawerState, appScope) { navController.navigate(it.route) }
+
     }
 }

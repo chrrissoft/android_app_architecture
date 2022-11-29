@@ -1,6 +1,5 @@
 package com.chrrissoft.marvel.data.chars
 
-import com.chrrissoft.marvel.data.chars.res.CharRes
 import com.chrrissoft.marvel.data.chars.res.CharsPrevRes
 import com.chrrissoft.marvel.data.comics.res.ComicsPrevRes
 import com.chrrissoft.marvel.data.events.res.EventsPrevRes
@@ -14,7 +13,7 @@ interface CharsRepo {
 
     fun getChars(source: Source): Flow<CharsPrevRes>
 
-//    fun getChar(id: Int, source: Source): Flow<CharRes>
+    fun getChar(id: Int, source: Source): Flow<Character>
 
     fun getComics(id: Int, source: Source): Flow<ComicsPrevRes>
 

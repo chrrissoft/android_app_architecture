@@ -23,21 +23,18 @@ class GetBySourceUseCase @Inject constructor(
 
     enum class GetBySource { LOCAL, REMOTE }
 
-    suspend operator fun invoke() =
-        withContext(IO) { observer() }
+    suspend fun init() = observer()
 
-    private fun CoroutineScope.observer() {
-        launch {
-            netObserver.observe().collect { update(it) }
-        }
+    private suspend fun observer() {
+        netObserver.observe().collect { update(it) }
     }
 
     private fun update(observerResult: NetState) {
         _getBySource.update {
-            when(observerResult) {
-                Unavailable -> LOCAL
-                Available -> REMOTE
+            when (observerResult) {
                 Lost -> LOCAL
+                Available -> REMOTE
+                Unavailable -> LOCAL
             }
         }
     }

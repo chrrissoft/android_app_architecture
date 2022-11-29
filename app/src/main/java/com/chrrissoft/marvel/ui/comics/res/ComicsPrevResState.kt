@@ -5,17 +5,19 @@ import com.chrrissoft.marvel.ui.comics.ComicsPreview
 
 sealed interface ComicsPrevResState {
 
+    val data: List<ComicsPreview>
+
     data class Error(
-        val data: List<ComicsPreview>,
+        override val data: List<ComicsPreview> = emptyList(),
         val message: Exception? = null
     ) : ComicsPrevResState
 
     data class Success(
-        val data: List<ComicsPreview>
+        override val data: List<ComicsPreview> = emptyList()
     ) : ComicsPrevResState
 
     data class Loading(
-        val data: List<ComicsPreview>
+        override val data: List<ComicsPreview> = emptyList()
     ) : ComicsPrevResState
 
 }

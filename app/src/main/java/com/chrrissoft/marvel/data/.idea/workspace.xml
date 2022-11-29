@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="NONE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="efaff975-ab69-4622-9b27-a28b2e50ba09" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../../../../../../../../.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../../../../../.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/characters/CharacterDataSource.kt" beforeDir="false" afterPath="$PROJECT_DIR$/characters/CharacterDataSource.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/characters/CharactersRepo.kt" beforeDir="false" afterPath="$PROJECT_DIR$/characters/CharactersRepo.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/characters/models/CharacterInfo.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/characters/models/CharactersPreview.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/characters/response/CharacterInfoResponse.kt" beforeDir="false" afterPath="$PROJECT_DIR$/characters/CharacterInfoResponse.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/characters/response/CharacterPreviewResponse.kt" beforeDir="false" afterPath="$PROJECT_DIR$/characters/CharacterPreviewResponse.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/comics/models/Characters.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/comics/models/ComicsWrapper.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/comics/models/Creators.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/comics/models/Data.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/comics/models/Dates.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/comics/models/Events.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/comics/models/Items.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/comics/models/Models.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/comics/models/Prices.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/comics/models/Results.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/comics/models/Series.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/comics/models/Stories.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/comics/models/Thumbnail.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/comics/models/Urls.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/comics/models/Variants.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/comond/Comics.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/comond/Events.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/comond/Series.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/comond/Stories.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/comond/items/ComicItem.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/comond/items/EventItem.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/comond/items/SeriesItem.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/comond/items/StoriesItem.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../framework/characters/CharacterAPIService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../framework/characters/CharacterAPIService.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../framework/characters/CharacterRepoImpl.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../framework/characters/CharacterRepoImpl.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../framework/characters/database/converters/ComicsConverter.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../framework/characters/database/converters/EventsConverter.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../framework/characters/database/converters/ImageConverter.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../framework/characters/database/converters/SeriesConverter.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../framework/characters/database/converters/StoriesConverter.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../framework/characters/database/info/CharacterInfo.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../framework/characters/database/info/CharacterInfoDao.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../framework/characters/database/info/Comics.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../framework/characters/database/info/Events.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../framework/characters/database/info/Series.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../framework/characters/database/info/Stories.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../framework/characters/database/items/ComicItem.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../framework/characters/database/items/EventItem.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../framework/characters/database/items/SeriesItem.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../framework/characters/database/items/StoriesItem.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../framework/characters/database/preview/CharacterPreview.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../framework/characters/database/preview/CharacterPreviewDao.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../framework/characters/datasource/LocalCharacterDataSourceImpl.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../framework/characters/datasource/LocalCharacterDataSourceImpl.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../framework/characters/datasource/RemoteCharacterDataSourceImp.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../framework/characters/datasource/RemoteCharacterDataSourceImp.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../framework/characters/models/Thumbnail.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../framework/characters/models/info/CharacterInfo.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../framework/characters/models/info/CharacterInfoAPIResponse.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../framework/characters/models/info/Comics.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../framework/characters/models/info/DataInfo.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../framework/characters/models/info/Events.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../framework/characters/models/info/Series.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../framework/characters/models/info/Stories.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../framework/characters/models/items/ComicItem.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../framework/characters/models/items/EventItem.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../framework/characters/models/items/SeriesItem.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../framework/characters/models/items/StoriesItem.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../framework/characters/models/preview/CharactersPreview.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../framework/characters/models/preview/CharactersPreviewAPIResponse.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../framework/characters/models/preview/DataPreview.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../framework/characters/response/info/local/LocalInfoError.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../framework/characters/response/info/local/LocalInfoLoading.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../framework/characters/response/info/local/RoomCharacterInfoResponse.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../framework/characters/response/info/remote/ApiCharacterInfoResponse.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../framework/characters/response/info/remote/ApiInfoError.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../framework/characters/response/info/remote/ApiInfoLoading.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../framework/characters/response/preview/local/LocalPreviewError.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../framework/characters/response/preview/local/LocalPreviewLoading.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../framework/characters/response/preview/local/RoomCharacterPreviewResponse.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../framework/characters/response/preview/remote/ApiCharacterPreviewResponse.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../framework/characters/response/preview/remote/ApiPreviewError.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../framework/characters/response/preview/remote/ApiPreviewLoading.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ui/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../ui/MainActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ui/characters/CharacterViewModel.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ui/characters/CharactersScreen.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ui/characters/state/CharactersUiState.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ui/characters/state/info/CharacterInfo.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ui/characters/state/info/Comics.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ui/characters/state/info/Events.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ui/characters/state/info/Series.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ui/characters/state/info/Stories.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ui/characters/state/items/ComicItem.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ui/characters/state/items/EventItem.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ui/characters/state/items/SeriesItem.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ui/characters/state/items/StoriesItem.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ui/characters/state/preview/CharacterPreview.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../usecases/characters/GetCharacterInfoUseCase.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../usecases/characters/GetCharacterInfoUseCase.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../../../../../build.gradle" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../../../../../../.." />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2HQeynBGDZA1xuqchQHLKAPwWFY" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="RunOnceActivity.cidr.known.project.marker" value="true" />
+    <property name="cidr.known.project.marker" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="AndroidSdkUpdater" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveKotlinTopLevelDeclarationsDialog.RECENTS_KEY">
+      <recent name="com.chrrissoft.marvel.data.characters" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="efaff975-ab69-4622-9b27-a28b2e50ba09" name="Changes" comment="" />
+      <created>1668221992081</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1668221992081</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

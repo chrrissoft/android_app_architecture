@@ -2,9 +2,7 @@ package com.chrrissoft.marvel.ui.comics
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.chrrissoft.marvel.ui.comics.ComicsScreenState.PreviewResState
 import com.chrrissoft.marvel.ui.comics.res.ComicsPrevRes
-import com.chrrissoft.marvel.ui.comics.res.ComicsPrevResState
 import com.chrrissoft.marvel.ui.common.ScreenPage
 import com.chrrissoft.marvel.usecases.comics.GetComicUseCase
 import com.chrrissoft.marvel.usecases.comics.GetComicsPrevUseCase
@@ -29,7 +27,6 @@ class ComicsViewModel @Inject constructor(
     val uiState = _uiState.asStateFlow()
 
     init {
-        initGetBySourceUseCase()
         collectGetBySource()
         load()
     }
@@ -46,11 +43,6 @@ class ComicsViewModel @Inject constructor(
         }
     }
 
-    private fun initGetBySourceUseCase() {
-        viewModelScope.launch {
-            getComicsPrevUseCase.initGetBySourceUseCase()
-        }
-    }
 
     private fun collectGetBySource() {
         viewModelScope.launch {
@@ -59,22 +51,7 @@ class ComicsViewModel @Inject constructor(
     }
 
     private fun updatePrevRes(res: ComicsPrevRes) {
-        _uiState.update {
-            when (res.state) {
-                is ComicsPrevResState.Error -> {
-                    it.copy(
-                        previews = res.state.data,
-                        previewResState = PreviewResState.ERROR
-                    )
-                }
-                is ComicsPrevResState.Loading -> {
-                    it.copy(previews = res.state.data, previewResState = PreviewResState.LOADING)
-                }
-                is ComicsPrevResState.Success -> {
-                    it.copy(previews = res.state.data, previewResState = PreviewResState.SUCCESS)
-                }
-            }
-        }
+        _uiState.update { it.copy(previews = res) }
     }
 }
 

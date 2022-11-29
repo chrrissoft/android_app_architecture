@@ -9,7 +9,7 @@ sealed interface EventResState {
     ) : EventResState
 
     data class Success(
-        val data: Event
+        val title: String, val image: Any?
     ) : EventResState
 
     data class Loading(

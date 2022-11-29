@@ -1,17 +1,18 @@
 package com.chrrissoft.marvel.data.chars.res
 
-import com.chrrissoft.marvel.ui.chars.res.CharsPrevRes as UICharsPrevRes
-import com.chrrissoft.marvel.data.chars.res.CharsPrevResState.Error as DataError
-import com.chrrissoft.marvel.data.chars.res.CharsPrevResState.Success as DataSuccess
-import com.chrrissoft.marvel.data.chars.res.CharsPrevResState.Loading as DataLoading
-import com.chrrissoft.marvel.ui.chars.res.CharsPrevResState.Error as UiError
-import com.chrrissoft.marvel.ui.chars.res.CharsPrevResState.Success as UiSuccess
-import com.chrrissoft.marvel.ui.chars.res.CharsPrevResState.Loading as UiLoading
+import com.chrrissoft.marvel.ui.chars.res.CharsRes as UiCharsRes
+import com.chrrissoft.marvel.ui.chars.res.CharResState.Error as UiError
+import com.chrrissoft.marvel.ui.chars.res.CharResState.Loading as UiLoading
+import com.chrrissoft.marvel.ui.chars.res.CharResState.Success as UiSuccess
+import com.chrrissoft.marvel.data.chars.res.CharResState.Error as DataError
+import com.chrrissoft.marvel.data.chars.res.CharResState.Loading as DataLoading
+import com.chrrissoft.marvel.data.chars.res.CharResState.Success as DataSuccess
 
-fun charsPrevConverter(res: CharsPrevRes): UICharsPrevRes {
+
+fun charConverter(res: CharRes): UiCharsRes {
     return when (res.state) {
-        is DataLoading -> UICharsPrevRes(UiLoading(res.state.data.map { it.toUi() }))
-        is DataSuccess -> UICharsPrevRes(UiSuccess(res.state.data.map { it.toUi() }))
-        is DataError -> UICharsPrevRes(UiError(res.state.data.map { it.toUi() }))
+        is DataError -> UiCharsRes(UiError(res.state.message))
+        is DataLoading -> UiCharsRes(UiLoading(res.state.message))
+        is DataSuccess -> UiCharsRes(UiSuccess(res.state.id, res.state.name, res.state.image))
     }
 }

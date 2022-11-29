@@ -15,7 +15,7 @@ sealed interface StoriesPrevResState {
     ) : StoriesPrevResState
 
     data class Loading(
-        val data: List<StoriesPreview>,
+        val data: List<StoriesPreview> = emptyList(),
         ) : StoriesPrevResState
 
 }

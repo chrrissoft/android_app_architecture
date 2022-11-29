@@ -1,17 +1,18 @@
 package com.chrrissoft.marvel.data.series.res
 
-import com.chrrissoft.marvel.ui.series.res.SeriesPrevRes as UiSeriesPrevRes
-import com.chrrissoft.marvel.data.series.res.SeriesPrevResState.Error as DataError
-import com.chrrissoft.marvel.data.series.res.SeriesPrevResState.Success as DataSuccess
-import com.chrrissoft.marvel.data.series.res.SeriesPrevResState.Loading as DataLoading
-import com.chrrissoft.marvel.ui.series.res.SeriesPrevResState.Success as UiSuccess
-import com.chrrissoft.marvel.ui.series.res.SeriesPrevResState.Error as UiError
-import com.chrrissoft.marvel.ui.series.res.SeriesPrevResState.Loading as UiLoading
+import com.chrrissoft.marvel.data.series.res.SerieResState.Error as DataError
+import com.chrrissoft.marvel.data.series.res.SerieResState.Loading as DataLoading
+import com.chrrissoft.marvel.data.series.res.SerieResState.Success as DataSuccess
+import com.chrrissoft.marvel.ui.series.res.SerieRes as UiSerieRes
+import com.chrrissoft.marvel.ui.series.res.SerieResState.Error as UiError
+import com.chrrissoft.marvel.ui.series.res.SerieResState.Loading as UiLoading
+import com.chrrissoft.marvel.ui.series.res.SerieResState.Success as UiSuccess
 
-fun seriesPrevConverter(res: SeriesPrevRes): UiSeriesPrevRes {
+
+fun serieConverter(res: SerieRes): UiSerieRes {
     return when (res.state) {
-        is DataLoading -> UiSeriesPrevRes(UiLoading(res.state.data.map { it.toUi() }))
-        is DataError -> UiSeriesPrevRes(UiError(res.state.data.map { it.toUi() }))
-        is DataSuccess -> UiSeriesPrevRes(UiSuccess(res.state.data.map { it.toUi() }))
+        is DataError -> UiSerieRes(UiError(res.state.message))
+        is DataLoading -> UiSerieRes(UiLoading(res.state.message))
+        is DataSuccess -> UiSerieRes(UiSuccess(res.state.title, res.state.image))
     }
 }

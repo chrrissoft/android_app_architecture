@@ -2,6 +2,6 @@ package com.chrrissoft.marvel.data.series.res
 
 
 data class SerieRes(
-    val state: SeriesResState
+    val state: SerieResState
 )
 

@@ -9,7 +9,8 @@ import com.chrrissoft.marvel.ui.navigation.Screens
 fun MarvelDrawer(
     item: Screens,
     drawerState: DrawerState,
-    sheetColors: DrawerSheetColors,
+    onCloseDrawer: () -> Unit,
+    sheetColors: MarvelDrawerSheetColors,
     itemColors: NavigationDrawerItemColors,
     onItemsChange: (Screens) -> Unit,
     content: @Composable () -> Unit,
@@ -19,7 +20,10 @@ fun MarvelDrawer(
         drawerState = drawerState,
         drawerContent = {
             MarvelDrawerSheet(
-                item, sheetColors, itemColors
+                item = item,
+                onCloseDrawer = { onCloseDrawer() },
+                sheetColors = sheetColors,
+                itemColors = itemColors
             ) { onItemsChange(it) }
         }
     ) { content() }

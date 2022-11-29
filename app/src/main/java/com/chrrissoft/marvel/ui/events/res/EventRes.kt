@@ -3,5 +3,5 @@ package com.chrrissoft.marvel.ui.events.res
 import com.chrrissoft.marvel.ui.events.res.EventResState.Loading
 
 data class EventRes(
-    val data: EventResState = Loading()
+    val state: EventResState = Loading()
 )

@@ -9,7 +9,7 @@ sealed interface ComicResState {
     ) : ComicResState
 
     data class Success(
-        val data: Comic
+        val title: String, val image: Any?
     ) : ComicResState
 
     data class Loading(

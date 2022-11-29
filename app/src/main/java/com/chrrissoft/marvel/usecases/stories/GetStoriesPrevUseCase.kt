@@ -39,8 +39,4 @@ class GetStoriesPrevUseCase @Inject constructor(
             getBySourceUseCase.getBySource.collect { getBySource = it }
         }
     }
-
-    suspend fun initGetBySourceUseCase() {
-        withContext(IO) { getBySourceUseCase() }
-    }
 }

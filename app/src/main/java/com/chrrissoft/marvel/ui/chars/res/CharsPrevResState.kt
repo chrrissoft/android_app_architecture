@@ -4,17 +4,19 @@ import com.chrrissoft.marvel.ui.chars.CharsPreview
 
 sealed interface CharsPrevResState {
 
+    val data: List<CharsPreview>
+
     data class Error(
-        val data: List<CharsPreview> = emptyList(),
+        override val data: List<CharsPreview> = emptyList(),
         val message: Exception? = null,
     ) : CharsPrevResState
 
     data class Success(
-        val data: List<CharsPreview> = emptyList()
+        override val data: List<CharsPreview> = emptyList()
     ) : CharsPrevResState
 
     data class Loading(
-        val data: List<CharsPreview> = emptyList()
+        override val data: List<CharsPreview> = emptyList()
     ) : CharsPrevResState
 
 }

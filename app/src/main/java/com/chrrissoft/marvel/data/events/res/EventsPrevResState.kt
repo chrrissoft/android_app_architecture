@@ -14,7 +14,7 @@ sealed interface EventsPrevResState {
     ) : EventsPrevResState
 
     data class Loading(
-        val data: List<EventPreview>,
+        val data: List<EventPreview> = emptyList(),
     ) : EventsPrevResState
 
 }

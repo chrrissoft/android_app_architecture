@@ -1,10 +1,15 @@
 <resources>
     <string name="app_name">Marvel</string>
+
+    <string name="drawer_sheet_title">Marvel App</string>
+
     <string name="route_name__chars">Characters</string>
     <string name="route_name__comics">Comics</string>
     <string name="route_name__series">Series</string>
     <string name="route_name__stories">Stories</string>
     <string name="route_name__events">Events</string>
+    <string name="screen_page__info">Info</string>
+    <string name="screen_page__preview">Preview</string>
 
 
 </resources>

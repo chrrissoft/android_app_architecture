@@ -4,17 +4,19 @@ import com.chrrissoft.marvel.ui.stories.StoryPreview
 
 sealed interface StoriesPrevResState {
 
+    val data: List<StoryPreview>
+
     data class Error(
-        val data: List<StoryPreview>,
+        override val data: List<StoryPreview>,
         val message: Exception? = null
     ) : StoriesPrevResState
 
     data class Success(
-        val data: List<StoryPreview>
+        override val data: List<StoryPreview>
     ) : StoriesPrevResState
 
     data class Loading(
-        val data: List<StoryPreview>
+        override val data: List<StoryPreview>
     ) : StoriesPrevResState
 
 }

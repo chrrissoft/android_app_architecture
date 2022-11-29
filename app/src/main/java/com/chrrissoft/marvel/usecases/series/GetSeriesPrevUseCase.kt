@@ -39,7 +39,4 @@ class GetSeriesPrevUseCase @Inject constructor(
         }
     }
 
-    suspend fun initGetBySourceUseCase() {
-        withContext(IO) { getBySourceUseCase() }
-    }
 }

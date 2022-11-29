@@ -1,6 +1,5 @@
 package com.chrrissoft.marvel.data.chars.res
 
-import com.chrrissoft.marvel.data.chars.Character
 
 sealed interface CharResState {
 
@@ -9,7 +8,7 @@ sealed interface CharResState {
     ) : CharResState
 
     data class Success(
-        val data: Character
+        val id: Int, val name: String, val image: Any?,
     ) : CharResState
 
     data class Loading(
