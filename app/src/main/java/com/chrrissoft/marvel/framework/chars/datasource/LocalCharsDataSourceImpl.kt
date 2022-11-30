@@ -1,24 +1,19 @@
 package com.chrrissoft.marvel.framework.chars.datasource
 
-import com.chrrissoft.marvel.data.chars.CharacterDataSource.LocalCharacterDataSource
+import com.chrrissoft.marvel.data.chars.CharsDataSource.LocalCharsDataSource
 import com.chrrissoft.marvel.data.chars.CharsPreview
 import com.chrrissoft.marvel.data.comics.ComicPreview
-import com.chrrissoft.marvel.data.comics.res.ComicsPrevRes
 import com.chrrissoft.marvel.data.events.EventPreview
-import com.chrrissoft.marvel.data.events.res.EventsPrevRes
 import com.chrrissoft.marvel.data.series.SeriesPreview
-import com.chrrissoft.marvel.data.series.res.SeriesPrevRes
 import com.chrrissoft.marvel.data.stories.StoriesPreview
-import com.chrrissoft.marvel.data.stories.res.StoriesPrevRes
 import com.chrrissoft.marvel.framework.chars.db.CharacterDao
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emptyFlow
-import kotlinx.coroutines.flow.transform
 import javax.inject.Inject
 
-class LocalCharacterDataSourceImpl @Inject constructor(
+class LocalCharsDataSourceImpl @Inject constructor(
     private val dao: CharacterDao
-) : LocalCharacterDataSource {
+) : LocalCharsDataSource {
 
     override fun getChars(offset: CharsOffset): Flow<List<CharsPreview>> {
         return emptyFlow()

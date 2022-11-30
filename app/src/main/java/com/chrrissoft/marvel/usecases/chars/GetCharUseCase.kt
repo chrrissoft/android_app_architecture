@@ -15,6 +15,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
+
 class GetCharUseCase @Inject constructor(
     private val repo: CharsRepo,
     private val calculateDataSourceUseCase: CalculateDataSourceUseCase,
@@ -79,4 +80,3 @@ class GetCharUseCase @Inject constructor(
         }
     }
 }
-

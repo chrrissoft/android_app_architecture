@@ -9,10 +9,28 @@ import com.chrrissoft.marvel.data.events.res.eventsPrevConverter
 import com.chrrissoft.marvel.data.series.res.SeriesPrevRes
 import com.chrrissoft.marvel.data.series.res.seriesPrevConverter
 import com.chrrissoft.marvel.data.stories.res.StoryRes
-import com.chrrissoft.marvel.data.stories.res.storyConverter
 import com.chrrissoft.marvel.ui.stories.Story
+import com.chrrissoft.marvel.data.stories.res.StoryResState.Error as DataError
+import com.chrrissoft.marvel.data.stories.res.StoryResState.Loading as DataLoading
+import com.chrrissoft.marvel.data.stories.res.StoryResState.Success as DataSuccess
+import com.chrrissoft.marvel.ui.stories.res.StoryRes as UiStoryRes
+import com.chrrissoft.marvel.ui.stories.res.StoryResState.Error as UiError
+import com.chrrissoft.marvel.ui.stories.res.StoryResState.Loading as UiLoading
+import com.chrrissoft.marvel.ui.stories.res.StoryResState.Success as UiSuccess
+
 
 interface Story {
+
+    private companion object {
+        private fun storyConverter(res: StoryRes): UiStoryRes {
+            return when (res.state) {
+                is DataError -> UiStoryRes(UiError(res.state.message))
+                is DataLoading -> UiStoryRes(UiLoading(res.state.message))
+                is DataSuccess -> UiStoryRes(UiSuccess(res.state.title, res.state.image))
+            }
+        }
+    }
+
     val self: StoryRes
     val events: EventsPrevRes
     val comics: ComicsPrevRes

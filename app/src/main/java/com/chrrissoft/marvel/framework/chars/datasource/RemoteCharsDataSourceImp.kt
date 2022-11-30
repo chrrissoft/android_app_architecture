@@ -1,15 +1,14 @@
 package com.chrrissoft.marvel.framework.chars.datasource
 
 import android.util.Log
-import com.chrrissoft.marvel.data.chars.CharacterDataSource.RemoteCharacterDataSource
+import com.chrrissoft.marvel.data.chars.CharsDataSource.RemoteCharsDataSource
 import com.chrrissoft.marvel.framework.chars.api.CharsAPIService
-import com.chrrissoft.marvel.framework.stories.api.StoriesResult
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class RemoteCharsDataSourceImp @Inject constructor(
     private val api: CharsAPIService
-) : RemoteCharacterDataSource {
+) : RemoteCharsDataSource {
 
     companion object {
         private const val TAG = "RemoteCharacterDataSourceImp"

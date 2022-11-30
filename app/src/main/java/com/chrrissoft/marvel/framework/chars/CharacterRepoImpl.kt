@@ -5,8 +5,8 @@ import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.Dispatchers.IO
 import com.chrrissoft.marvel.data.chars.Char
-import com.chrrissoft.marvel.data.chars.CharacterDataSource.LocalCharacterDataSource
-import com.chrrissoft.marvel.data.chars.CharacterDataSource.RemoteCharacterDataSource
+import com.chrrissoft.marvel.data.chars.CharsDataSource.LocalCharsDataSource
+import com.chrrissoft.marvel.data.chars.CharsDataSource.RemoteCharsDataSource
 import com.chrrissoft.marvel.data.chars.CharsRepo
 import com.chrrissoft.marvel.data.chars.CharsRepo.Source
 import com.chrrissoft.marvel.data.chars.CharsRepo.Source.LOCAL
@@ -43,8 +43,8 @@ import com.chrrissoft.marvel.data.stories.res.StoriesPrevResState.Loading as Sto
 import com.chrrissoft.marvel.data.stories.res.StoriesPrevResState.Success as StoriesSuccess
 
 class CharacterRepoImpl @Inject constructor(
-    private val remoteDataSource: RemoteCharacterDataSource,
-    private val localDataSource: LocalCharacterDataSource,
+    private val remoteDataSource: RemoteCharsDataSource,
+    private val localDataSource: LocalCharsDataSource,
 ) : CharsRepo {
 
     private var cachedId: Int? = null

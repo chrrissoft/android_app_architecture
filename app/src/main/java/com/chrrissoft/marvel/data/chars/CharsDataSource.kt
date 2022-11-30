@@ -7,7 +7,7 @@ import com.chrrissoft.marvel.data.stories.StoriesPreview
 import com.chrrissoft.marvel.framework.chars.datasource.*
 import kotlinx.coroutines.flow.Flow
 
-interface CharacterDataSource {
+interface CharsDataSource {
 
     fun getChars(offset: CharsOffset) : Flow<List<CharsPreview>>
 
@@ -19,7 +19,7 @@ interface CharacterDataSource {
 
     fun getEvents(id: Int, offset: EventsOffset) : Flow<List<EventPreview>>
 
-    interface RemoteCharacterDataSource : CharacterDataSource
-    interface LocalCharacterDataSource : CharacterDataSource
+    interface RemoteCharsDataSource : CharsDataSource
+    interface LocalCharsDataSource : CharsDataSource
 
 }
