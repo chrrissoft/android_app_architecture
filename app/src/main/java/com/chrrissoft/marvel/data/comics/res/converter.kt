@@ -8,7 +8,6 @@ import com.chrrissoft.marvel.ui.comics.res.ComicResState.Error as UiError
 import com.chrrissoft.marvel.ui.comics.res.ComicResState.Loading as UiLoading
 import com.chrrissoft.marvel.ui.comics.res.ComicResState.Success as UiSuccess
 
-
 fun comicConverter(res: ComicRes): UiComicRes {
     return when (res.state) {
         is DataError -> UiComicRes(UiError(res.state.message))

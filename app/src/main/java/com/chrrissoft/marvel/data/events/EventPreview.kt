@@ -7,5 +7,7 @@ interface EventPreview {
     val title: String
     val image: Any
 
-    fun toUi() = EventPreview(id, title, image)
+    fun toUi() = EventPreview(id, title, convertImage())
+
+    fun convertImage() : Any?
 }

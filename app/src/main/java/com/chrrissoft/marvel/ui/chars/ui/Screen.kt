@@ -51,15 +51,27 @@ fun CharsScreen(
                     screenPage = state.screenPage,
                     barColors = MarvelNavBarColors.default(),
                     itemColors = MarvelNavBarItemColors.default(),
-                    onScreenPageChange = { viewModel.changeScreenState(it) }
+                    onScreenPageChange = { viewModel.changeScreenPage(it) }
                 )
             }
-        ) {
+        ) { padding ->
             when (state.screenPage) {
-                PREVIEW -> CharsPreviewPage(state.previews, Modifier.padding(it)) {
-
+                PREVIEW -> {
+                    CharsPreviewPage(
+                        res = state.previews,
+                        modifier = Modifier.padding(padding),
+                        onLoad = { viewModel.loadPreviews() },
+                        onGetInfo = { viewModel.loadInfo(it) }
+                    )
                 }
-                INFO -> CharInfoPage(state.info, Modifier.padding(it)) {}
+                INFO -> CharInfoPage(
+                    res = state.info,
+                    modifier = Modifier.padding(padding),
+                    onLoadComics = { viewModel.loadComics() },
+                    onLoadSeries = { viewModel.loadSeries() },
+                    onLoadStories = { viewModel.loadStories() },
+                    onLoadEvents = { viewModel.loadEvents() },
+                )
             }
         }
     }

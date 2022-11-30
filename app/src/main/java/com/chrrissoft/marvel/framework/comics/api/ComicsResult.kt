@@ -7,7 +7,12 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class ComicsResult(
-    @SerialName("id") override val id: Int,
-    @SerialName("name") override val title: String,
+    @SerialName("id") override val id: Int = 0,
+    @SerialName("title") override val title: String = "",
     @SerialName("thumbnail") override val image: Thumbnail,
-) : ComicPreview
+) : ComicPreview {
+    override fun convertImage(): Any {
+        val image = image.path + "." + image.extension
+        return image.replace("http:", "https:")
+    }
+}

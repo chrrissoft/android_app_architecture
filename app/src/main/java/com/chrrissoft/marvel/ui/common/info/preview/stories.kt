@@ -1,5 +1,6 @@
 package com.chrrissoft.marvel.ui.common.info.preview
 
+import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.lazy.LazyListScope
@@ -16,6 +17,7 @@ import com.chrrissoft.marvel.ui.common.info.PrevOnInfoError
 import com.chrrissoft.marvel.ui.common.info.PrevOnInfoLoading
 import com.chrrissoft.marvel.ui.common.info.PrevOnInfoSuccess
 import com.chrrissoft.marvel.R.string.route_name__stories
+import com.chrrissoft.marvel.ui.chars.ui.INFO_STATE
 import com.chrrissoft.marvel.ui.stories.res.StoriesPrevResState.*
 
 @Composable
@@ -24,6 +26,7 @@ fun StoriesPreviewsInInfo(
     modifier: Modifier = Modifier,
     onLoadMore: () -> Unit,
 ) {
+    Log.d(INFO_STATE, "Stories on Info   ->   ${res.state}")
     Column(modifier) {
         PrevListTitle(stringResource(route_name__stories))
         LazyRow {

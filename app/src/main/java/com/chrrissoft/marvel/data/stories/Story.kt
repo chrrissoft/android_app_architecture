@@ -8,13 +8,11 @@ import com.chrrissoft.marvel.data.events.res.EventsPrevRes
 import com.chrrissoft.marvel.data.events.res.eventsPrevConverter
 import com.chrrissoft.marvel.data.series.res.SeriesPrevRes
 import com.chrrissoft.marvel.data.series.res.seriesPrevConverter
-import com.chrrissoft.marvel.data.stories.res.StoriesPrevRes
 import com.chrrissoft.marvel.data.stories.res.StoryRes
-import com.chrrissoft.marvel.data.stories.res.storiesPrevConverter
 import com.chrrissoft.marvel.data.stories.res.storyConverter
 import com.chrrissoft.marvel.ui.stories.Story
 
-interface Stories {
+interface Story {
     val self: StoryRes
     val events: EventsPrevRes
     val comics: ComicsPrevRes
@@ -28,4 +26,6 @@ interface Stories {
         comics = comicsPrevConverter(comics),
         series = seriesPrevConverter(series)
     )
+
+
 }

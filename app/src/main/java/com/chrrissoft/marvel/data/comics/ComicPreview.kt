@@ -5,7 +5,9 @@ import com.chrrissoft.marvel.ui.comics.ComicsPreview
 interface ComicPreview {
     val id: Int
     val title: String
-    val image: Any
+    val image: Any?
 
-    fun toUi() = ComicsPreview(id, title, image)
+    fun toUi() = ComicsPreview(id, title, convertImage())
+
+    fun convertImage() : Any?
 }

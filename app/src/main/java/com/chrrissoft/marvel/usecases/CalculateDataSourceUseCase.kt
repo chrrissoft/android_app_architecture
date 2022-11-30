@@ -3,25 +3,21 @@ package com.chrrissoft.marvel.usecases
 import com.chrrissoft.marvel.data.netstate.NetObserver
 import com.chrrissoft.marvel.data.netstate.NetState
 import com.chrrissoft.marvel.data.netstate.NetState.*
-import com.chrrissoft.marvel.usecases.GetBySourceUseCase.GetBySource.LOCAL
-import com.chrrissoft.marvel.usecases.GetBySourceUseCase.GetBySource.REMOTE
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers.IO
+import com.chrrissoft.marvel.usecases.CalculateDataSourceUseCase.DataSource.LOCAL
+import com.chrrissoft.marvel.usecases.CalculateDataSourceUseCase.DataSource.REMOTE
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-class GetBySourceUseCase @Inject constructor(
+class CalculateDataSourceUseCase @Inject constructor(
     private val netObserver: NetObserver
 ) {
 
-    private val _getBySource = MutableStateFlow(REMOTE)
-    val getBySource = _getBySource.asStateFlow()
+    private val _dataSource = MutableStateFlow(REMOTE)
+    val dataSource = _dataSource.asStateFlow()
 
-    enum class GetBySource { LOCAL, REMOTE }
+    enum class DataSource { LOCAL, REMOTE }
 
     suspend fun init() = observer()
 
@@ -30,7 +26,7 @@ class GetBySourceUseCase @Inject constructor(
     }
 
     private fun update(observerResult: NetState) {
-        _getBySource.update {
+        _dataSource.update {
             when (observerResult) {
                 Lost -> LOCAL
                 Available -> REMOTE

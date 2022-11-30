@@ -1,6 +1,5 @@
 package com.chrrissoft.marvel.framework.comics.db
 
-import android.graphics.Bitmap
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey

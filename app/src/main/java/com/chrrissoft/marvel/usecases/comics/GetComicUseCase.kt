@@ -6,6 +6,8 @@ import javax.inject.Inject
 class GetComicUseCase @Inject constructor(
     private val repo: ComicsRepo,
 ) {
-    operator fun invoke(id: Int) {}
+    suspend fun init() {
+
+    }
 }
 

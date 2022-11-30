@@ -17,6 +17,10 @@ data class EventPreview(
         return result
     }
 
+    override fun convertImage(): Any? {
+        return null
+    }
+
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false

@@ -9,6 +9,10 @@ data class ComicPreview(
     override val image: ByteArray,
     override val title: String,
 ) : ComicPreview {
+    override fun convertImage(): Any? {
+        return null
+    }
+
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false

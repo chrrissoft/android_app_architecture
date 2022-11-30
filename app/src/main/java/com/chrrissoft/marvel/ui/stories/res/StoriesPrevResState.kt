@@ -7,7 +7,7 @@ sealed interface StoriesPrevResState {
     val data: List<StoryPreview>
 
     data class Error(
-        override val data: List<StoryPreview>,
+        override val data: List<StoryPreview> = emptyList(),
         val message: Exception? = null
     ) : StoriesPrevResState
 
@@ -16,7 +16,7 @@ sealed interface StoriesPrevResState {
     ) : StoriesPrevResState
 
     data class Loading(
-        override val data: List<StoryPreview>
+        override val data: List<StoryPreview> = emptyList()
     ) : StoriesPrevResState
 
 }

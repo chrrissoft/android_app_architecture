@@ -1,5 +1,6 @@
 package com.chrrissoft.marvel.ui.events.ui
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -11,6 +12,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme.colorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import com.chrrissoft.marvel.ui.chars.ui.PREVIEW_STATE
 import com.chrrissoft.marvel.ui.events.res.EventsPrevRes
 import com.chrrissoft.marvel.ui.events.res.EventsPrevResState.*
 import com.chrrissoft.marvel.ui.common.previews.PrevOnPrevError
@@ -24,6 +26,7 @@ fun EventsPreviewPage(
     modifier: Modifier = Modifier,
     onLoad: () -> Unit
 ) {
+    Log.d(PREVIEW_STATE, "Events   ->   ${res.state}")
     Box(
         modifier
             .fillMaxSize()

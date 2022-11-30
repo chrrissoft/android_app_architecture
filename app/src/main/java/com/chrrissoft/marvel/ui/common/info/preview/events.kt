@@ -1,5 +1,6 @@
 package com.chrrissoft.marvel.ui.common.info.preview
 
+import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.lazy.LazyListScope
@@ -10,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.chrrissoft.marvel.R.string.route_name__events
+import com.chrrissoft.marvel.ui.chars.ui.INFO_STATE
 import com.chrrissoft.marvel.ui.events.EventPreview
 import com.chrrissoft.marvel.ui.events.res.EventsPrevRes
 import com.chrrissoft.marvel.ui.common.info.PrevListTitle
@@ -24,6 +26,7 @@ fun EventsPreviewsInInfo(
     modifier: Modifier = Modifier,
     onLoadMore: () -> Unit,
 ) {
+    Log.d(INFO_STATE, "Events on Info   ->   ${res.state}")
     Column(modifier) {
         PrevListTitle(stringResource(route_name__events))
         LazyRow {
@@ -31,9 +34,7 @@ fun EventsPreviewsInInfo(
             when (res.state) {
                 is Error -> item { EventsError() }
                 is Loading -> item { EventsLoading() }
-                is Success -> {
-                    item { Button(onLoadMore) {} }
-                }
+                is Success -> item { Button(onLoadMore) {} }
             }
         }
     }

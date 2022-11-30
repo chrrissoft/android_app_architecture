@@ -1,5 +1,6 @@
 package com.chrrissoft.marvel.ui.comics.ui
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -11,6 +12,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme.colorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import com.chrrissoft.marvel.ui.chars.ui.PREVIEW_STATE
 import com.chrrissoft.marvel.ui.comics.ComicsPreview
 import com.chrrissoft.marvel.ui.comics.res.ComicsPrevRes
 import com.chrrissoft.marvel.ui.comics.res.ComicsPrevResState.*
@@ -24,6 +26,7 @@ fun ComicsPreviewPage(
     modifier: Modifier = Modifier,
     onLoad: () -> Unit
 ) {
+    Log.d(PREVIEW_STATE, "Comics   ->   ${res.state}")
     Box(
         modifier
             .fillMaxSize()

@@ -7,20 +7,4 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import coil.request.ImageRequest.Builder
 
-@Composable
-fun ImageOnInfoError() {
-    TODO()
-}
 
-@Composable
-fun ImageOnInfoLoading() {
-    TODO()
-}
-
-@Composable
-fun ImageOnInfoSuccess(data: Any?) {
-    AsyncImage(
-        model = Builder(LocalContext.current).data(data).crossfade(true),
-        contentDescription = null
-    )
-}

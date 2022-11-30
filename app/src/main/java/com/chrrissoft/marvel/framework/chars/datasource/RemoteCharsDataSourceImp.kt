@@ -3,6 +3,7 @@ package com.chrrissoft.marvel.framework.chars.datasource
 import android.util.Log
 import com.chrrissoft.marvel.data.chars.CharacterDataSource.RemoteCharacterDataSource
 import com.chrrissoft.marvel.framework.chars.api.CharsAPIService
+import com.chrrissoft.marvel.framework.stories.api.StoriesResult
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
@@ -44,26 +45,31 @@ class RemoteCharsDataSourceImp @Inject constructor(
 }
 
 @JvmInline
-value class CharsOffset(val value: Int = 0) {
-    fun copy(value: Int) = CharsOffset(value)
+value class CharsOffset(val value: Int = 100) {
+    fun update(value: Int) = CharsOffset(value + 20)
+    fun clean() = CharsOffset()
 }
 
 @JvmInline
 value class ComicsOffset(val value: Int = 0) {
-    fun copy(value: Int) = ComicsOffset(value)
+    fun update(value: Int) = ComicsOffset(value + 20)
+    fun clean() = ComicsOffset()
 }
 
 @JvmInline
 value class SeriesOffset(val value: Int = 0) {
-    fun copy(value: Int) = SeriesOffset(value)
+    fun update(value: Int) = SeriesOffset(value + 20)
+    fun clean() = SeriesOffset()
 }
 
 @JvmInline
 value class StoriesOffset(val value: Int = 0) {
-    fun copy(value: Int) = StoriesOffset(value)
+    fun update(value: Int) = StoriesOffset(value + 20)
+    fun clean() = StoriesOffset()
 }
 
 @JvmInline
 value class EventsOffset(val value: Int = 0) {
-    fun copy(value: Int) = EventsOffset(value)
+    fun update(value: Int) = EventsOffset(value + 20)
+    fun clean() = EventsOffset()
 }

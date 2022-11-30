@@ -1,7 +1,5 @@
 package com.chrrissoft.marvel.data.stories.res
 
-import com.chrrissoft.marvel.data.stories.Stories
-
 sealed interface StoryResState {
 
     data class Error(

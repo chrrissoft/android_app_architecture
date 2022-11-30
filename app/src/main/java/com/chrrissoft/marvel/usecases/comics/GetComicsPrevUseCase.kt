@@ -4,8 +4,9 @@ import com.chrrissoft.marvel.data.comics.ComicsRepo
 import com.chrrissoft.marvel.data.comics.ComicsRepo.Source
 import com.chrrissoft.marvel.data.comics.res.comicsPrevConverter
 import com.chrrissoft.marvel.ui.comics.res.ComicsPrevRes
-import com.chrrissoft.marvel.usecases.GetBySourceUseCase
-import com.chrrissoft.marvel.usecases.GetBySourceUseCase.GetBySource
+import com.chrrissoft.marvel.usecases.CalculateDataSourceUseCase
+import com.chrrissoft.marvel.usecases.CalculateDataSourceUseCase.DataSource
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -16,28 +17,36 @@ import javax.inject.Singleton
 @Singleton
 class GetComicsPrevUseCase @Inject constructor(
     private val repo: ComicsRepo,
-    private val getBySourceUseCase: GetBySourceUseCase,
+    private val calculateDataSourceUseCase: CalculateDataSourceUseCase,
 ) {
 
-    private var getBySource = GetBySource.REMOTE
+    private var dataSource = DataSource.REMOTE
     private val _res = MutableStateFlow(ComicsPrevRes())
     val res = _res.asStateFlow()
 
-    suspend operator fun invoke()  {
-        withContext(IO) {
-            launch { getPreviews() }
+    suspend fun init() {
+        withContext(Dispatchers.Main) { launch(IO) { calculateDataSourceUseCase.init() } }
+        withContext(Dispatchers.Main) { launch(IO) { collectGetBySource() } }
+    }
+
+    suspend fun getChars() {
+        withContext(Dispatchers.Main) {
+            launch(IO) {
+                repo.getPreviews(Source.REMOTE).collect { res ->
+                    _res.update { withContext(Dispatchers.Main) { comicsPrevConverter(res) } }
+                }
+            }
         }
     }
 
-    private suspend fun getPreviews() {
-        repo.getPreviews(Source.LOCAL).collect { res ->
-            _res.update { comicsPrevConverter(res) }
-        }
+    private suspend fun collectGetBySource() {
+        calculateDataSourceUseCase.dataSource.collect { dataSource = it }
     }
 
-    suspend fun collectGetBySource() {
-        withContext(IO) {
-            getBySourceUseCase.getBySource.collect { getBySource = it }
+    private fun calculateDataSource(dataSource: DataSource): Source {
+        return when (dataSource) {
+            DataSource.LOCAL -> Source.LOCAL
+            DataSource.REMOTE -> Source.REMOTE
         }
     }
 

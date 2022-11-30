@@ -5,7 +5,8 @@ import com.chrrissoft.marvel.ui.stories.StoryPreview
 interface StoriesPreview {
     val id: Int
     val title: String
-    val image: Any
+    val image: Any?
 
-    fun toUi() = StoryPreview(id, title, image)
+    fun toUi() = StoryPreview(id, title, convertImage())
+    fun convertImage() : Any?
 }

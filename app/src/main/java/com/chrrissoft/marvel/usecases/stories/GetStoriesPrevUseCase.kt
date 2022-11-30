@@ -3,8 +3,8 @@ package com.chrrissoft.marvel.usecases.stories
 import com.chrrissoft.marvel.data.stories.StoriesRepo
 import com.chrrissoft.marvel.data.stories.res.storiesPrevConverter
 import com.chrrissoft.marvel.ui.stories.res.StoriesPrevRes
-import com.chrrissoft.marvel.usecases.GetBySourceUseCase
-import com.chrrissoft.marvel.usecases.GetBySourceUseCase.GetBySource
+import com.chrrissoft.marvel.usecases.CalculateDataSourceUseCase
+import com.chrrissoft.marvel.usecases.CalculateDataSourceUseCase.DataSource
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -15,10 +15,10 @@ import javax.inject.Inject
 
 class GetStoriesPrevUseCase @Inject constructor(
     private val repo: StoriesRepo,
-    private val getBySourceUseCase: GetBySourceUseCase,
+    private val calculateDataSourceUseCase: CalculateDataSourceUseCase,
 ) {
 
-    private var getBySource = GetBySource.REMOTE
+    private var dataSource = DataSource.REMOTE
     private val _res = MutableStateFlow(StoriesPrevRes())
     val res = _res.asStateFlow()
 
@@ -36,7 +36,7 @@ class GetStoriesPrevUseCase @Inject constructor(
 
     suspend fun collectGetBySource() {
         withContext(IO) {
-            getBySourceUseCase.getBySource.collect { getBySource = it }
+            calculateDataSourceUseCase.dataSource.collect { dataSource = it }
         }
     }
 }

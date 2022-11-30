@@ -1,7 +1,5 @@
 package com.chrrissoft.marvel.data.series.res
 
-import com.chrrissoft.marvel.data.series.Series
-
 sealed interface SerieResState {
 
     data class Error(

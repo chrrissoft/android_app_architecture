@@ -8,6 +8,11 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class SeriesResult(
     @SerialName("id") override val id: Int,
-    @SerialName("name") override val title: String,
+    @SerialName("title") override val title: String,
     @SerialName("thumbnail") override val image: Thumbnail,
-) : SeriesPreview
+) : SeriesPreview {
+    override fun convertImage(): Any {
+        val image = image.path + "." + image.extension
+        return image.replace("http:", "https:")
+    }
+}

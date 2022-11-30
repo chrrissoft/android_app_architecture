@@ -1,5 +1,6 @@
 package com.chrrissoft.marvel.ui.common.info.preview
 
+import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.lazy.LazyListScope
@@ -10,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.chrrissoft.marvel.R.string.route_name__comics
+import com.chrrissoft.marvel.ui.chars.ui.INFO_STATE
 import com.chrrissoft.marvel.ui.comics.ComicsPreview
 import com.chrrissoft.marvel.ui.comics.res.ComicsPrevRes
 import com.chrrissoft.marvel.ui.comics.res.ComicsPrevResState.*
@@ -24,6 +26,7 @@ fun ComicsPreviewsInInfo(
     modifier: Modifier = Modifier,
     onLoadMore: () -> Unit
 ) {
+    Log.d(INFO_STATE, "Comics on info   ->   ${res.state}")
     Column(modifier) {
         PrevListTitle(stringResource(route_name__comics))
         LazyRow {

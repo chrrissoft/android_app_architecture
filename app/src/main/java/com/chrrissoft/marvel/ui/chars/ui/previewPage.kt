@@ -1,11 +1,13 @@
 package com.chrrissoft.marvel.ui.chars.ui
 
+import android.util.Log
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
-import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme.colorScheme
@@ -18,19 +20,24 @@ import com.chrrissoft.marvel.ui.common.previews.PrevOnPrevError
 import com.chrrissoft.marvel.ui.common.previews.PrevOnPrevLoading
 import com.chrrissoft.marvel.ui.common.previews.PrevOnPrevSuccess
 
+const val PREVIEW_STATE = "PREVIEW"
+const val INFO_STATE = "INFO"
+
 @Composable
 fun CharsPreviewPage(
     res: CharsPrevRes,
     modifier: Modifier = Modifier,
-    onLoad: () -> Unit
+    onLoad: () -> Unit,
+    onGetInfo: (Int) -> Unit
 ) {
+    Log.d(PREVIEW_STATE, "Chars   ->   ${res.state}")
     Box(
         modifier
             .fillMaxSize()
             .background(colorScheme.secondaryContainer)
     ) {
-        LazyRow {
-            list(res.state.data)
+        LazyColumn {
+            list(res.state.data) { onGetInfo(it) }
             when (res.state) {
                 is Error -> item { CharsPreviewError() }
                 is Loading -> item { CharsPreviewLoading() }
@@ -40,8 +47,14 @@ fun CharsPreviewPage(
     }
 }
 
-private fun LazyListScope.list(list: List<CharsPreview>) {
-    items(list) { CharsPreviewSuccess(it) }
+private fun LazyListScope.list(
+    list: List<CharsPreview>,
+    modifier: Modifier = Modifier,
+    onClick: (Int) -> Unit,
+) {
+    items(list) {
+        CharsPreviewSuccess(it, modifier.clickable { onClick(it.id) })
+    }
 }
 
 @Composable

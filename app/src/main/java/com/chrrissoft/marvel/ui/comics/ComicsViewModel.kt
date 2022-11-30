@@ -7,6 +7,7 @@ import com.chrrissoft.marvel.ui.common.ScreenPage
 import com.chrrissoft.marvel.usecases.comics.GetComicUseCase
 import com.chrrissoft.marvel.usecases.comics.GetComicsPrevUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -15,8 +16,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ComicsViewModel @Inject constructor(
-    private val getComicInfoUseCase: GetComicUseCase,
-    private val getComicsPrevUseCase: GetComicsPrevUseCase
+    private val getInfoUseCase: GetComicUseCase,
+    private val getPreviewsUseCase: GetComicsPrevUseCase
 ) : ViewModel() {
 
     companion object {
@@ -27,31 +28,40 @@ class ComicsViewModel @Inject constructor(
     val uiState = _uiState.asStateFlow()
 
     init {
-        collectGetBySource()
-        load()
+        loadPreview()
+        collectPreviews()
     }
 
-    fun changeScreenState(state: ScreenPage) {
-        _uiState.update { it.copy(screenPage = state) }
-    }
+    /*******************  previews  *******************/
 
-    fun load() {
+    fun loadPreview() {
         viewModelScope.launch {
-            getComicsPrevUseCase.res.collect {
-                updatePrevRes(it)
+            getPreviewsUseCase
+        }
+    }
+
+    private fun collectPreviews() {
+        viewModelScope.launch(Dispatchers.IO) {
+            getPreviewsUseCase.res.collect {
+                updatePreviews(it)
             }
         }
     }
 
+    private fun updatePreviews(res: ComicsPrevRes) {
+        _uiState.update { it.copy(previews = res) }
+    }
 
-    private fun collectGetBySource() {
+    private fun initGetInfoUseCase() {
         viewModelScope.launch {
-            getComicsPrevUseCase.collectGetBySource()
+            getInfoUseCase.init()
         }
     }
 
-    private fun updatePrevRes(res: ComicsPrevRes) {
-        _uiState.update { it.copy(previews = res) }
+    /*******************  state changes  *******************/
+
+    fun changeScreenState(state: ScreenPage) {
+        _uiState.update { it.copy(screenPage = state) }
     }
 }
 

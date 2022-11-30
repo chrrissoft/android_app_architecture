@@ -25,7 +25,7 @@ class LocalCharacterDataSourceImpl @Inject constructor(
     }
 
     override fun getComics(id: Int, offset: ComicsOffset): Flow<List<ComicPreview>> {
-        return dao.getComics().transform { emit(listOf(it)) }
+        return emptyFlow()
     }
 
     override fun getSeries(id: Int, offset: SeriesOffset): Flow<List<SeriesPreview>> {

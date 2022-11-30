@@ -6,6 +6,7 @@ import com.chrrissoft.marvel.data.comics.res.ComicRes
 import com.chrrissoft.marvel.data.comics.res.ComicsPrevRes
 import com.chrrissoft.marvel.data.events.res.EventRes
 import com.chrrissoft.marvel.data.events.res.EventsPrevRes
+import com.chrrissoft.marvel.data.series.Serie
 import com.chrrissoft.marvel.data.series.SeriesDataSource.LocalSeriesDataSource
 import com.chrrissoft.marvel.data.series.SeriesDataSource.RemoteSeriesDataSource
 import com.chrrissoft.marvel.data.series.res.SeriesPrevRes
@@ -26,43 +27,15 @@ class SeriesRepoImpl @Inject constructor(
         const val TAG = "CharacterRepoImpl"
     }
 
-    override fun get(source: SeriesRepo.Source): Flow<SerieRes> {
+    override fun getInfo(
+        id: Int,
+        requestOf: SeriesRepo.RequestOf,
+        source: SeriesRepo.Source
+    ): Flow<Serie> {
         return emptyFlow()
     }
 
     override fun getPreviews(source: SeriesRepo.Source): Flow<SeriesPrevRes> {
-        return emptyFlow()
-    }
-
-    override fun getChars(source: SeriesRepo.Source): Flow<CharsPrevRes> {
-        return emptyFlow()
-    }
-
-    override fun geChar(source: SeriesRepo.Source): Flow<CharRes> {
-        return emptyFlow()
-    }
-
-    override fun getComics(source: SeriesRepo.Source): Flow<ComicsPrevRes> {
-        return emptyFlow()
-    }
-
-    override fun getComic(source: SeriesRepo.Source): Flow<ComicRes> {
-        return emptyFlow()
-    }
-
-    override fun getStories(source: SeriesRepo.Source): Flow<StoriesPrevRes> {
-        return emptyFlow()
-    }
-
-    override fun getStory(source: SeriesRepo.Source): Flow<StoryRes> {
-        return emptyFlow()
-    }
-
-    override fun getEvents(source: SeriesRepo.Source): Flow<EventsPrevRes> {
-        return emptyFlow()
-    }
-
-    override fun getEvent(source: SeriesRepo.Source): Flow<EventRes> {
         return emptyFlow()
     }
 

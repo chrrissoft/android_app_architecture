@@ -11,12 +11,6 @@ data class CharacterResult(
     @SerialName("name") override val name: String,
     @SerialName("thumbnail") override val image: Thumbnail,
 ) : CharsPreview {
-    companion object {
-        val emptyResult = CharacterResult(
-            id = 0, name = "", image = Thumbnail("", "")
-        )
-    }
-
     override fun convertImage(): Any {
         val image = image.path + "." + image.extension
         return image.replace("http:", "https:")
