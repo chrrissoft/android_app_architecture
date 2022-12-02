@@ -24,5 +24,5 @@ data class Character(
         )
     }
 
-    fun isEmpty() = this == emptyChar
+    fun isEmpty() = this === emptyChar
 }

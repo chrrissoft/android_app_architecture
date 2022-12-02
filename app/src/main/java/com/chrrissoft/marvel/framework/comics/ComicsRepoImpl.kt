@@ -37,10 +37,11 @@ import com.chrrissoft.marvel.framework.events.datasource.EventsOffset
 import com.chrrissoft.marvel.framework.series.datasource.SeriesOffset
 import com.chrrissoft.marvel.framework.stories.datasource.StoriesOffset
 import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
@@ -82,31 +83,34 @@ class ComicsRepoImpl @Inject constructor(
 
             emit(cachedInfo)
 
-            if (!selfIsFind) {
-                withContext(IO) {
-                    getSelfFromCache(id).collect { emit(cachedInfo.copy(self = it)) }
-                    selfIsFind = true
+            coroutineScope {
+
+                if (!selfIsFind) {
+                    launch(IO) {
+                        getSelfFromCache(id).collect { emit(cachedInfo.copy(self = it)) }
+                        selfIsFind = true
+                    }
                 }
+
+                when (requestOf) {
+                    RequestOf.CHARS -> launch(IO) {
+                        getChars(id, source).collect { emit(cachedInfo.copy(characters = it)) }
+                    }
+
+                    RequestOf.SERIES -> launch(IO) {
+                        getSeries(id, source).collect { emit(cachedInfo.copy(series = it)) }
+                    }
+
+                    RequestOf.STORIES -> launch(IO) {
+                        getStories(id, source).collect { emit(cachedInfo.copy(stories = it)) }
+                    }
+
+                    RequestOf.EVENTS -> launch(IO) {
+                        getEvents(id, source).collect { emit(cachedInfo.copy(events = it)) }
+                    }
+                }
+
             }
-
-            when (requestOf) {
-                RequestOf.CHARS -> withContext(IO) {
-                    getChars(id, source).collect { emit(cachedInfo.copy(characters = it)) }
-                }
-
-                RequestOf.SERIES -> withContext(IO) {
-                    getSeries(id, source).collect { emit(cachedInfo.copy(series = it)) }
-                }
-
-                RequestOf.STORIES -> withContext(IO) {
-                    getStories(id, source).collect { emit(cachedInfo.copy(stories = it)) }
-                }
-
-                RequestOf.EVENTS -> withContext(IO) {
-                    getEvents(id, source).collect { emit(cachedInfo.copy(events = it)) }
-                }
-            }
-
         }
     }
 

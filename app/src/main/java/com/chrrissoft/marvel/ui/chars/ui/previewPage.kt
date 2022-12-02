@@ -33,9 +33,7 @@ fun CharsPreviewPage(
             .fillMaxSize()
             .background(colorScheme.secondaryContainer)
     ) {
-        LazyColumn(
-            state = listState
-        ) {
+        LazyColumn(state = listState) {
             list(res.state.data) { onGetInfo(it) }
             when (res.state) {
                 is Error -> item { CharsPreviewError { onLoad() } }
@@ -53,9 +51,7 @@ private fun LazyListScope.list(
     modifier: Modifier = Modifier,
     onClick: (Int) -> Unit,
 ) {
-    items(list) {
-        CharsPreviewSuccess(it, modifier) { onClick(it.id) }
-    }
+    items(list) { CharsPreviewSuccess(it, modifier) { onClick(it.id) } }
 }
 
 @Composable

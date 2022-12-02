@@ -1,5 +1,6 @@
 package com.chrrissoft.marvel.ui.stories.ui
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -8,6 +9,8 @@ import androidx.compose.material3.MaterialTheme.colorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.chrrissoft.marvel.ui.INFO_STATE
+import com.chrrissoft.marvel.ui.common.info.EmptyInfo
 import com.chrrissoft.marvel.ui.stories.Story
 import com.chrrissoft.marvel.ui.stories.res.StoryRes
 import com.chrrissoft.marvel.ui.stories.res.StoryResState.*
@@ -25,23 +28,29 @@ fun StoryInfoPage(
     onLoadSeries: () -> Unit,
     onLoadEvents: () -> Unit,
 ) {
-    Column(
-        modifier
-            .fillMaxSize()
-            .background(colorScheme.secondaryContainer)
-            .verticalScroll(rememberScrollState())
-    ) {
-        Info(res.self)
-        Spacer(Modifier.height(5.dp))
-        CharsPreviewsInInfo(res.characters) { onLoadChars() }
-        ComicsPreviewsInInfo(res.comics) { loadComics() }
-        SeriesPreviewsInInfo(res.series) { onLoadSeries() }
-        EventsPreviewsInInfo(res.events) { onLoadEvents() }
+
+    if (res.isEmpty()) EmptyInfo()
+
+    else {
+        Column(
+            modifier
+                .fillMaxSize()
+                .background(colorScheme.secondaryContainer)
+                .verticalScroll(rememberScrollState())
+        ) {
+            Info(res.self)
+            Spacer(Modifier.height(5.dp))
+            CharsPreviewsInInfo(res.characters) { onLoadChars() }
+            ComicsPreviewsInInfo(res.comics) { loadComics() }
+            SeriesPreviewsInInfo(res.series) { onLoadSeries() }
+            EventsPreviewsInInfo(res.events) { onLoadEvents() }
+        }
     }
 }
 
 @Composable
 private fun Info(res: StoryRes) {
+    Log.d(INFO_STATE, "Story info   ->   ${res.state}")
     when (res.state) {
         is Error -> ErrorInfo()
         is Loading -> LoadingInfo()

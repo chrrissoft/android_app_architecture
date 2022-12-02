@@ -6,21 +6,18 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme.colorScheme
-import androidx.compose.material3.MaterialTheme.typography
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.chrrissoft.marvel.ui.INFO_STATE
 import com.chrrissoft.marvel.ui.chars.Character
 import com.chrrissoft.marvel.ui.chars.res.CharResState.*
 import com.chrrissoft.marvel.ui.chars.res.CharsRes
+import com.chrrissoft.marvel.ui.common.info.EmptyInfo
 import com.chrrissoft.marvel.ui.common.info.ErrorInfo
 import com.chrrissoft.marvel.ui.common.info.LoadingInfo
 import com.chrrissoft.marvel.ui.common.info.SuccessInfo
-import com.chrrissoft.marvel.ui.common.info.preview.ComicsPreviewsInInfo
-import com.chrrissoft.marvel.ui.common.info.preview.EventsPreviewsInInfo
-import com.chrrissoft.marvel.ui.common.info.preview.SeriesPreviewsInInfo
-import com.chrrissoft.marvel.ui.common.info.preview.StoriesPreviewsInInfo
+import com.chrrissoft.marvel.ui.common.info.preview.*
 
 @Composable
 fun CharInfoPage(
@@ -32,14 +29,9 @@ fun CharInfoPage(
     onLoadEvents: () -> Unit,
 ) {
 
-    if (res.isEmpty()) {
-        Box(modifier = modifier.fillMaxSize()) {
-            Text(
-                text = "Select a char in the previews",
-                style = typography.titleLarge.copy(colorScheme.onSecondaryContainer),
-            )
-        }
-    } else {
+    if (res.isEmpty()) EmptyInfo()
+
+    else {
         Column(
             modifier
                 .fillMaxSize()

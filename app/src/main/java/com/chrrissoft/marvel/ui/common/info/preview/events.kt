@@ -11,7 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.chrrissoft.marvel.R.string.route_name__events
-import com.chrrissoft.marvel.ui.chars.ui.INFO_STATE
+import com.chrrissoft.marvel.ui.INFO_STATE
 import com.chrrissoft.marvel.ui.events.EventPreview
 import com.chrrissoft.marvel.ui.events.res.EventsPrevRes
 import com.chrrissoft.marvel.ui.common.info.PrevListTitle

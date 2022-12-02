@@ -17,7 +17,7 @@ import com.chrrissoft.marvel.ui.common.info.PrevOnInfoError
 import com.chrrissoft.marvel.ui.common.info.PrevOnInfoLoading
 import com.chrrissoft.marvel.ui.common.info.PrevOnInfoSuccess
 import com.chrrissoft.marvel.R.string.route_name__series
-import com.chrrissoft.marvel.ui.chars.ui.INFO_STATE
+import com.chrrissoft.marvel.ui.INFO_STATE
 import com.chrrissoft.marvel.ui.series.res.SeriesPrevResState.*
 
 @Composable
