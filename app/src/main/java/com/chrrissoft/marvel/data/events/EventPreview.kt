@@ -5,7 +5,7 @@ import com.chrrissoft.marvel.ui.events.EventPreview
 interface EventPreview {
     val id: Int
     val title: String
-    val image: Any
+    val image: Any?
 
     fun toUi() = EventPreview(id, title, convertImage())
 

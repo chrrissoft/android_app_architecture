@@ -1,11 +1,10 @@
 package com.chrrissoft.marvel.ui.chars.res
 
-import com.chrrissoft.marvel.ui.chars.Character
 
 sealed interface CharResState {
 
     data class Error(
-        val message: Exception? = null
+        val throwable: Throwable
     ) : CharResState
 
     data class Success(

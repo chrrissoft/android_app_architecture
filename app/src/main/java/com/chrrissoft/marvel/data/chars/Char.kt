@@ -24,7 +24,7 @@ interface Char {
     private companion object {
         private fun charConverter(res: CharRes): UiCharsRes {
             return when (res.state) {
-                is DataError -> UiCharsRes(UiError(res.state.message))
+                is DataError -> UiCharsRes(UiError(res.state.throwable))
                 is DataLoading -> UiCharsRes(UiLoading(res.state.message))
                 is DataSuccess -> UiCharsRes(
                     UiSuccess(res.state.id, res.state.name, res.state.image)

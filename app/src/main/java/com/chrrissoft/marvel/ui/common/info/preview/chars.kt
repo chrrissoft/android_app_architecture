@@ -8,7 +8,6 @@ import androidx.compose.material3.Button
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import com.chrrissoft.marvel.ui.chars.res.CharsPrevRes
-import com.chrrissoft.marvel.ui.chars.res.CharsPrevResState
 import com.chrrissoft.marvel.ui.common.info.PrevListTitle
 import com.chrrissoft.marvel.ui.common.info.PrevOnInfoError
 import com.chrrissoft.marvel.ui.common.info.PrevOnInfoLoading

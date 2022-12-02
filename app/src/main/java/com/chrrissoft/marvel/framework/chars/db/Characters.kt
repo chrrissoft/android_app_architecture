@@ -5,9 +5,6 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.chrrissoft.marvel.framework.chars.db.Characters.Companion.CHARS_TABLE
 import com.chrrissoft.marvel.framework.db.ComicPreview
-import com.chrrissoft.marvel.framework.db.EventPreview
-import com.chrrissoft.marvel.framework.db.SeriesPreview
-import com.chrrissoft.marvel.framework.db.StoriesPreview
 
 @Entity(tableName = CHARS_TABLE)
 data class Characters(

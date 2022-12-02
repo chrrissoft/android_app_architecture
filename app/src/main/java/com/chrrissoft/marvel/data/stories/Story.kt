@@ -24,9 +24,9 @@ interface Story {
     private companion object {
         private fun storyConverter(res: StoryRes): UiStoryRes {
             return when (res.state) {
-                is DataError -> UiStoryRes(UiError(res.state.message))
+                is DataError -> UiStoryRes(UiError(res.state.throwable))
                 is DataLoading -> UiStoryRes(UiLoading(res.state.message))
-                is DataSuccess -> UiStoryRes(UiSuccess(res.state.title, res.state.image))
+                is DataSuccess -> UiStoryRes(UiSuccess(res.state.id, res.state.title, res.state.image))
             }
         }
     }

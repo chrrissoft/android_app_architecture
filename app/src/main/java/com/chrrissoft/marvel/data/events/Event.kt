@@ -24,9 +24,9 @@ interface Event {
     private companion object {
         private fun eventConverter(res: EventRes): UiEventRes {
             return when (res.state) {
-                is DataError -> UiEventRes(UiError(res.state.message))
+                is DataError -> UiEventRes(UiError(res.state.throwable))
                 is DataLoading -> UiEventRes(UiLoading(res.state.message))
-                is DataSuccess -> UiEventRes(UiSuccess(res.state.title, res.state.image))
+                is DataSuccess -> UiEventRes(UiSuccess(res.state.id, res.state.title, res.state.image))
             }
         }
     }
@@ -35,13 +35,13 @@ interface Event {
     val comics: ComicsPrevRes
     val series: SeriesPrevRes
     val stories: StoriesPrevRes
-    val characters: CharsPrevRes
+    val chars: CharsPrevRes
 
     fun toUi() = Event(
         self = eventConverter(self),
         comics = comicsPrevConverter(comics),
         series = seriesPrevConverter(series),
         stories = storiesPrevConverter(stories),
-        characters = charsPrevConverter(characters),
+        characters = charsPrevConverter(chars),
     )
 }

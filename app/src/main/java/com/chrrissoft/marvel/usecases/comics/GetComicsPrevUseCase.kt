@@ -6,8 +6,9 @@ import com.chrrissoft.marvel.data.comics.res.comicsPrevConverter
 import com.chrrissoft.marvel.ui.comics.res.ComicsPrevRes
 import com.chrrissoft.marvel.usecases.CalculateDataSourceUseCase
 import com.chrrissoft.marvel.usecases.CalculateDataSourceUseCase.DataSource
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.Dispatchers.Main
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -25,23 +26,27 @@ class GetComicsPrevUseCase @Inject constructor(
     val res = _res.asStateFlow()
 
     suspend fun init() {
-        withContext(Dispatchers.Main) { launch(IO) { calculateDataSourceUseCase.init() } }
-        withContext(Dispatchers.Main) { launch(IO) { collectGetBySource() } }
+        withContext(Main) { launch(IO) { calculateDataSourceUseCase.init() } }
+        withContext(Main) { launch(IO) { collectGetBySource() } }
     }
 
     suspend fun getChars() {
-        withContext(Dispatchers.Main) {
+        withContext(Main) {
             launch(IO) {
                 repo.getPreviews(Source.REMOTE).collect { res ->
-                    _res.update { withContext(Dispatchers.Main) { comicsPrevConverter(res) } }
+                    _res.update { withContext(Main) { comicsPrevConverter(res) } }
                 }
             }
         }
     }
 
     private suspend fun collectGetBySource() {
-        calculateDataSourceUseCase.dataSource.collect { dataSource = it }
+        calculateDataSourceUseCase.dataSource.collect {
+            withContext(Main) { updateDataSource(it) }
+        }
     }
+
+    private fun updateDataSource(result: DataSource) { dataSource = result }
 
     private fun calculateDataSource(dataSource: DataSource): Source {
         return when (dataSource) {

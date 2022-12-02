@@ -20,7 +20,10 @@ import com.chrrissoft.marvel.ui.common.info.preview.*
 fun SerieInfoPage(
     res: Serie,
     modifier: Modifier = Modifier,
-    onLoadMore: () -> Unit,
+    onLoadChars: () -> Unit,
+    loadComics: () -> Unit,
+    onLoadStories: () -> Unit,
+    onLoadEvents: () -> Unit,
 ) {
     Column(
         modifier
@@ -30,10 +33,10 @@ fun SerieInfoPage(
     ) {
         Info(res.self)
         Spacer(Modifier.height(5.dp))
-        CharsPreviewsInInfo(res.characters) { }
-        ComicsPreviewsInInfo(res.comics) { }
-        StoriesPreviewsInInfo(res.stories) { }
-        EventsPreviewsInInfo(res.events) { }
+        CharsPreviewsInInfo(res.characters) { onLoadChars() }
+        ComicsPreviewsInInfo(res.comics) { loadComics() }
+        StoriesPreviewsInInfo(res.stories) { onLoadStories() }
+        EventsPreviewsInInfo(res.events) { onLoadEvents() }
     }
 }
 

@@ -1,8 +1,11 @@
 package com.chrrissoft.marvel.framework.chars.datasource
 
-import android.util.Log
 import com.chrrissoft.marvel.data.chars.CharsDataSource.RemoteCharsDataSource
 import com.chrrissoft.marvel.framework.chars.api.CharsAPIService
+import com.chrrissoft.marvel.framework.comics.datasource.ComicsOffset
+import com.chrrissoft.marvel.framework.events.datasource.EventsOffset
+import com.chrrissoft.marvel.framework.series.datasource.SeriesOffset
+import com.chrrissoft.marvel.framework.stories.datasource.StoriesOffset
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
@@ -10,15 +13,9 @@ class RemoteCharsDataSourceImp @Inject constructor(
     private val api: CharsAPIService
 ) : RemoteCharsDataSource {
 
-    companion object {
-        private const val TAG = "RemoteCharacterDataSourceImp"
-    }
-
     override fun getChars(offset: CharsOffset) = flow {
-        Log.d("CharsRequest", "begin request in remote ds")
-        val apiResult = api.getPreview(offset.value).body()?.data?.results ?: emptyList()
+        val apiResult = api.getChars(offset.value).body()?.data?.results ?: emptyList()
         emit(apiResult)
-        Log.d("CharsRequest", "request was get in remote ds")
     }
 
     override fun getComics(id: Int, offset: ComicsOffset) = flow {
@@ -41,34 +38,4 @@ class RemoteCharsDataSourceImp @Inject constructor(
         emit(apiResult)
     }
 
-}
-
-@JvmInline
-value class CharsOffset(val value: Int = 100) {
-    fun update(value: Int) = CharsOffset(value + 20)
-    fun clean() = CharsOffset()
-}
-
-@JvmInline
-value class ComicsOffset(val value: Int = 0) {
-    fun update(value: Int) = ComicsOffset(value + 20)
-    fun clean() = ComicsOffset()
-}
-
-@JvmInline
-value class SeriesOffset(val value: Int = 0) {
-    fun update(value: Int) = SeriesOffset(value + 20)
-    fun clean() = SeriesOffset()
-}
-
-@JvmInline
-value class StoriesOffset(val value: Int = 0) {
-    fun update(value: Int) = StoriesOffset(value + 20)
-    fun clean() = StoriesOffset()
-}
-
-@JvmInline
-value class EventsOffset(val value: Int = 0) {
-    fun update(value: Int) = EventsOffset(value + 20)
-    fun clean() = EventsOffset()
 }

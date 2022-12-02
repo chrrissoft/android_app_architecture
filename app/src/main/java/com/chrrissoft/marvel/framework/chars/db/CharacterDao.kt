@@ -1,8 +1,6 @@
 package com.chrrissoft.marvel.framework.chars.db
 
 import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy.REPLACE
 import androidx.room.Query
 import com.chrrissoft.marvel.framework.db.*
 import kotlinx.coroutines.flow.Flow

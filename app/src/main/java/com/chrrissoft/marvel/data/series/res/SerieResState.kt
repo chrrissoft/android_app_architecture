@@ -1,13 +1,14 @@
 package com.chrrissoft.marvel.data.series.res
 
+
 sealed interface SerieResState {
 
     data class Error(
-        val message: Exception
+        val throwable: Throwable
     ) : SerieResState
 
     data class Success(
-        val title: String, val image: Any?
+        val id: Int, val title: String, val image: Any?
     ) : SerieResState
 
     data class Loading(

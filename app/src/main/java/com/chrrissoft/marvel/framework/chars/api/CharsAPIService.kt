@@ -17,8 +17,11 @@ interface CharsAPIService {
         private const val HASH = "&hash=f1dfe54e17c6fd558915df011207dd27"
     }
 
+    @GET("v1/public/characters/{id}?$TS$APIKEY$HASH")
+    suspend fun getChar(@Path("id") id: Int): Response<Characters>
+
     @GET("v1/public/characters?$TS$APIKEY$HASH")
-    suspend fun getPreview(
+    suspend fun getChars(
         @Query("offset") offset: Int,
         @Query("limit") limit: Int = 20
     ): Response<Characters>
@@ -29,13 +32,6 @@ interface CharsAPIService {
         @Query("offset") offset: Int,
         @Query("limit") limit: Int = 20
     ): Response<Comics>
-
-    @GET("v1/public/characters/{id}/events?$TS$APIKEY$HASH")
-    suspend fun getEvents(
-        @Path("id") id: Int,
-        @Query("offset") offset: Int,
-        @Query("limit") limit: Int = 20
-    ): Response<Events>
 
     @GET("v1/public/characters/{id}/series?$TS$APIKEY$HASH")
     suspend fun getSeries(
@@ -50,4 +46,12 @@ interface CharsAPIService {
         @Query("offset") offset: Int,
         @Query("limit") limit: Int = 20
     ): Response<Stories>
+
+    @GET("v1/public/characters/{id}/events?$TS$APIKEY$HASH")
+    suspend fun getEvents(
+        @Path("id") id: Int,
+        @Query("offset") offset: Int,
+        @Query("limit") limit: Int = 20
+    ): Response<Events>
+
 }

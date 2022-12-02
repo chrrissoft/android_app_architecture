@@ -4,7 +4,7 @@ package com.chrrissoft.marvel.data.chars.res
 sealed interface CharResState {
 
     data class Error(
-        val message: Exception
+        val throwable: Throwable
     ) : CharResState
 
     data class Success(

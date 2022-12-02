@@ -1,6 +1,7 @@
 package com.chrrissoft.marvel.ui.chars.ui
 
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -14,8 +15,7 @@ import com.chrrissoft.marvel.ui.components.*
 import com.chrrissoft.marvel.ui.components.drawer.MarvelDrawer
 import com.chrrissoft.marvel.ui.components.drawer.MarvelDrawerSheetColors
 import com.chrrissoft.marvel.ui.components.drawer.MarvelNavigationDrawerItemColors
-import com.chrrissoft.marvel.ui.components.scafoold.MarvelTopAppBar
-import com.chrrissoft.marvel.ui.components.scafoold.MarvelTopAppBarColors
+import com.chrrissoft.marvel.ui.components.scafoold.*
 import com.chrrissoft.marvel.ui.navigation.Screens
 import com.chrrissoft.marvel.ui.navigation.Screens.CharsScreen
 
@@ -30,6 +30,7 @@ fun CharsScreen(
 ) {
 
     val state by viewModel.uiState.collectAsState()
+    val previewListState = rememberLazyListState()
 
     MarvelDrawer(
         item = CharsScreen,
@@ -59,19 +60,22 @@ fun CharsScreen(
                 PREVIEW -> {
                     CharsPreviewPage(
                         res = state.previews,
+                        listState = previewListState,
                         modifier = Modifier.padding(padding),
                         onLoad = { viewModel.loadPreviews() },
-                        onGetInfo = { viewModel.loadInfo(it) }
+                        onGetInfo = { viewModel.loadInfo(it) },
                     )
                 }
-                INFO -> CharInfoPage(
-                    res = state.info,
-                    modifier = Modifier.padding(padding),
-                    onLoadComics = { viewModel.loadComics() },
-                    onLoadSeries = { viewModel.loadSeries() },
-                    onLoadStories = { viewModel.loadStories() },
-                    onLoadEvents = { viewModel.loadEvents() },
-                )
+                INFO -> {
+                    CharInfoPage(
+                        res = state.info,
+                        modifier = Modifier.padding(padding),
+                        onLoadComics = { viewModel.loadComics() },
+                        onLoadSeries = { viewModel.loadSeries() },
+                        onLoadStories = { viewModel.loadStories() },
+                        onLoadEvents = { viewModel.loadEvents() },
+                    )
+                }
             }
         }
     }

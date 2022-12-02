@@ -8,7 +8,7 @@ sealed interface ComicsPrevResState {
 
     data class Error(
         override val data: List<ComicPreview>,
-        val message: Exception? = null
+        val message: Throwable
     ) : ComicsPrevResState
 
     data class Success(
@@ -20,4 +20,3 @@ sealed interface ComicsPrevResState {
         ) : ComicsPrevResState
 
 }
-

@@ -24,9 +24,9 @@ interface Serie {
     private companion object {
         private fun serieConverter(res: SerieRes): UiSerieRes {
             return when (res.state) {
-                is DataError -> UiSerieRes(UiError(res.state.message))
+                is DataError -> UiSerieRes(UiError(res.state.throwable))
                 is DataLoading -> UiSerieRes(UiLoading(res.state.message))
-                is DataSuccess -> UiSerieRes(UiSuccess(res.state.title, res.state.image))
+                is DataSuccess -> UiSerieRes(UiSuccess(res.state.id, res.state.title, res.state.image))
             }
         }
     }
@@ -35,13 +35,13 @@ interface Serie {
     val events: EventsPrevRes
     val comics: ComicsPrevRes
     val stories: StoriesPrevRes
-    val characters: CharsPrevRes
+    val chars: CharsPrevRes
 
     fun toUi() = Serie(
         self = serieConverter(self),
         events = eventsPrevConverter(events),
         comics = comicsPrevConverter(comics),
         stories = storiesPrevConverter(stories),
-        characters = charsPrevConverter(characters),
+        characters = charsPrevConverter(chars),
     )
 }

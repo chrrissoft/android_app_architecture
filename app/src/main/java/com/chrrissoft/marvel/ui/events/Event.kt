@@ -1,10 +1,8 @@
 package com.chrrissoft.marvel.ui.events
 
 import com.chrrissoft.marvel.ui.chars.res.CharsPrevRes
-import com.chrrissoft.marvel.ui.comics.Comic
 import com.chrrissoft.marvel.ui.comics.res.ComicsPrevRes
 import com.chrrissoft.marvel.ui.events.res.EventRes
-import com.chrrissoft.marvel.ui.events.res.EventsPrevRes
 import com.chrrissoft.marvel.ui.series.res.SeriesPrevRes
 import com.chrrissoft.marvel.ui.stories.res.StoriesPrevRes
 

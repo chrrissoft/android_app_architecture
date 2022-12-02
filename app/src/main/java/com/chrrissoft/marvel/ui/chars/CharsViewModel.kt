@@ -2,7 +2,6 @@ package com.chrrissoft.marvel.ui.chars
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.chrrissoft.marvel.data.chars.CharsRepo.RequestOf
 import com.chrrissoft.marvel.ui.chars.res.CharsPrevRes
 import com.chrrissoft.marvel.ui.common.ScreenPage
 import com.chrrissoft.marvel.ui.common.ScreenPage.INFO
@@ -17,8 +16,6 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
-import kotlin.contracts.ExperimentalContracts
-import kotlin.contracts.contract
 
 @HiltViewModel
 class CharsViewModel @Inject constructor(
@@ -26,14 +23,9 @@ class CharsViewModel @Inject constructor(
     private val getPreviewsUseCase: GetCharsPrevUseCase
 ) : ViewModel() {
 
-    companion object {
-        private const val TAG = "CharsViewModel"
-    }
-
     private val _uiState = MutableStateFlow(CharsScreenState())
     val uiState = _uiState.asStateFlow()
-    var cachedId: Int? = null // used to load its info still it not is load
-        private set
+    private var cachedId: Int? = null // used to load its info still it not is load
 
     init {
         initGetPreviewsUseCase()
@@ -55,7 +47,7 @@ class CharsViewModel @Inject constructor(
     private fun collectPreviews() {
         viewModelScope.launch(IO) {
             getPreviewsUseCase.res.collect {
-                updatePreviews(it)
+                withContext(Main) { updatePreviews(it) }
             }
         }
     }
@@ -65,9 +57,7 @@ class CharsViewModel @Inject constructor(
     }
 
     private fun initGetPreviewsUseCase() {
-        viewModelScope.launch {
-            getPreviewsUseCase.init()
-        }
+        viewModelScope.launch { getPreviewsUseCase.init() }
     }
 
     /*******************  info  *******************/

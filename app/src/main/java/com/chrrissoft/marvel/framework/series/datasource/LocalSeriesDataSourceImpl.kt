@@ -13,7 +13,7 @@ import javax.inject.Inject
 class LocalSeriesDataSourceImpl @Inject constructor(
 
 ) : LocalSeriesDataSource {
-    override fun getPreview(): Flow<SeriesPrevRes> {
+    override fun getSeries(): Flow<SeriesPrevRes> {
         return emptyFlow()
     }
 

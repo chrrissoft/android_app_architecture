@@ -1,6 +1,7 @@
 package com.chrrissoft.marvel.ui.stories.ui
 
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -13,9 +14,9 @@ import com.chrrissoft.marvel.ui.components.*
 import com.chrrissoft.marvel.ui.components.drawer.MarvelDrawerSheetColors
 import com.chrrissoft.marvel.ui.components.drawer.MarvelDrawer
 import com.chrrissoft.marvel.ui.components.drawer.MarvelNavigationDrawerItemColors
-import com.chrrissoft.marvel.ui.components.scafoold.MarvelTopAppBar
-import com.chrrissoft.marvel.ui.components.scafoold.MarvelTopAppBarColors
+import com.chrrissoft.marvel.ui.components.scafoold.*
 import com.chrrissoft.marvel.ui.navigation.Screens
+import com.chrrissoft.marvel.ui.navigation.Screens.StoriesScreen
 import com.chrrissoft.marvel.ui.stories.StoriesViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -27,10 +28,12 @@ fun StoriesScreen(
     onCloseDrawer: () -> Unit,
     onNavigate: (Screens) -> Unit,
 ) {
+
     val state by viewModel.uiState.collectAsState()
+    val previewListState = rememberLazyListState()
 
     MarvelDrawer(
-        item = Screens.StoriesScreen,
+        item = StoriesScreen,
         drawerState = drawerState,
         onCloseDrawer = onCloseDrawer,
         sheetColors = MarvelDrawerSheetColors.default(),
@@ -52,20 +55,28 @@ fun StoriesScreen(
                     onScreenPageChange = { viewModel.changeScreenPage(it) }
                 )
             }
-        ) {
+        ) { padding ->
             when (state.screenPage) {
                 PREVIEW -> {
-                    StoriesPreviewPage(state.previews, Modifier.padding(it)) {
-
-                    }
+                    StoriesPreviewPage(
+                        res = state.previews,
+                        listState = previewListState,
+                        modifier = Modifier.padding(padding),
+                        onLoad = { viewModel.loadPreviews() },
+                        onGetInfo = { viewModel.loadInfo(it) },
+                    )
                 }
                 INFO -> {
-                    StoryInfoPage(state.info, Modifier.padding(it)) {
-
-                    }
+                    StoryInfoPage(
+                        res = state.info,
+                        modifier = Modifier.padding(padding),
+                        onLoadChars = { viewModel.loadChars() },
+                        loadComics = { viewModel.loadComics() },
+                        onLoadSeries = { viewModel.loadSeries() },
+                        onLoadEvents = { viewModel.loadEvents() },
+                    )
                 }
             }
         }
     }
 }
-

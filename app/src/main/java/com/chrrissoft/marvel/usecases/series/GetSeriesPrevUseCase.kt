@@ -7,11 +7,15 @@ import com.chrrissoft.marvel.ui.series.res.SeriesPrevRes
 import com.chrrissoft.marvel.usecases.CalculateDataSourceUseCase
 import com.chrrissoft.marvel.usecases.CalculateDataSourceUseCase.DataSource
 import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.Dispatchers.Main
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class GetSeriesPrevUseCase @Inject constructor(
     private val repo: SeriesRepo,
     private val calculateDataSourceUseCase: CalculateDataSourceUseCase,
@@ -21,21 +25,33 @@ class GetSeriesPrevUseCase @Inject constructor(
     private val _res = MutableStateFlow(SeriesPrevRes())
     val res = _res.asStateFlow()
 
-    suspend operator fun invoke()  {
-        withContext(IO) {
-            launch { getPreviews() }
+    suspend fun init() {
+        withContext(Main) { launch(IO) { calculateDataSourceUseCase.init() } }
+        withContext(Main) { launch(IO) { collectGetBySource() } }
+    }
+
+    suspend fun getChars() {
+        withContext(Main) {
+            launch(IO) {
+                repo.getPreviews(Source.REMOTE).collect { res ->
+                    _res.update { withContext(Main) { seriesPrevConverter(res) } }
+                }
+            }
         }
     }
 
-    private suspend fun getPreviews() {
-        repo.getPreviews(Source.LOCAL).collect { res ->
-            _res.update { seriesPrevConverter(res) }
+    private suspend fun collectGetBySource() {
+        calculateDataSourceUseCase.dataSource.collect {
+            withContext(Main) { updateDataSource(it) }
         }
     }
 
-    suspend fun collectGetBySource() {
-        withContext(IO) {
-            calculateDataSourceUseCase.dataSource.collect { dataSource = it }
+    private fun updateDataSource(result: DataSource) { dataSource = result }
+
+    private fun calculateDataSource(dataSource: DataSource): Source {
+        return when (dataSource) {
+            DataSource.LOCAL -> Source.LOCAL
+            DataSource.REMOTE -> Source.REMOTE
         }
     }
 

@@ -8,13 +8,14 @@ import com.chrrissoft.marvel.usecases.CalculateDataSourceUseCase
 import com.chrrissoft.marvel.usecases.CalculateDataSourceUseCase.DataSource
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class GetCharsPrevUseCase @Inject constructor(
     private val repo: CharsRepo,
     private val calculateDataSourceUseCase: CalculateDataSourceUseCase,
@@ -26,7 +27,7 @@ class GetCharsPrevUseCase @Inject constructor(
 
     suspend fun init() {
         withContext(Main) { launch(IO) { calculateDataSourceUseCase.init() } }
-        withContext(Main) { launch(IO) { collectGetBySource() } }
+        withContext(Main) { launch(IO) { collectDataSourceResult() } }
     }
 
     suspend fun getChars() {
@@ -39,9 +40,13 @@ class GetCharsPrevUseCase @Inject constructor(
         }
     }
 
-    private suspend fun collectGetBySource() {
-        calculateDataSourceUseCase.dataSource.collect { dataSource = it }
+    private suspend fun collectDataSourceResult() {
+        calculateDataSourceUseCase.dataSource.collect {
+            withContext(Main) { updateDataSource(it) }
+        }
     }
+
+    private fun updateDataSource(result: DataSource) { dataSource = result }
 
     private fun calculateDataSource(dataSource: DataSource): Source {
         return when (dataSource) {

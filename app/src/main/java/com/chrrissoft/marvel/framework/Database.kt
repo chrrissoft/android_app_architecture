@@ -5,11 +5,7 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.chrrissoft.marvel.framework.chars.db.CharacterDao
 import com.chrrissoft.marvel.framework.chars.db.Characters
-import com.chrrissoft.marvel.framework.comics.db.Comics
 import com.chrrissoft.marvel.framework.db.converters.*
-import com.chrrissoft.marvel.framework.events.db.Events
-import com.chrrissoft.marvel.framework.series.db.Series
-import com.chrrissoft.marvel.framework.stories.db.Stories
 
 @Database(
     entities = [

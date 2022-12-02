@@ -4,17 +4,19 @@ import com.chrrissoft.marvel.data.series.SeriesPreview
 
 sealed interface SeriesPrevResState {
 
+    val data: List<SeriesPreview>
+
     data class Error(
-        val data: List<SeriesPreview>,
-        val message: Exception? = null
+        override val data: List<SeriesPreview>,
+        val throwable: Throwable
     ) : SeriesPrevResState
 
     data class Success(
-        val data: List<SeriesPreview>
+        override val data: List<SeriesPreview>
     ) : SeriesPrevResState
 
     data class Loading(
-        val data: List<SeriesPreview> = emptyList(),
-        ) : SeriesPrevResState
+        override val data: List<SeriesPreview> = emptyList(),
+    ) : SeriesPrevResState
 
 }

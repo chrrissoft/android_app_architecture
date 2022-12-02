@@ -1,6 +1,7 @@
 package com.chrrissoft.marvel.ui.common.previews
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons.Rounded
 import androidx.compose.material.icons.rounded.Info
@@ -29,7 +30,7 @@ private val height @Composable get() = LocalConfiguration.current.screenHeightDp
 private val width @Composable get() = LocalConfiguration.current.screenWidthDp.dp
 
 @Composable
-fun PrevOnPrevError(modifier: Modifier = Modifier) {
+fun PrevOnPrevError(modifier: Modifier = Modifier, onTryAgain: () -> Unit) {
     Column(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -44,7 +45,7 @@ fun PrevOnPrevError(modifier: Modifier = Modifier) {
             Rounded.Info,
             contentDescription = null,
             tint = colorScheme.onErrorContainer,
-            modifier = Modifier.size(100.dp),
+            modifier = Modifier.size(100.dp).clickable { onTryAgain() },
         )
         Spacer(modifier = Modifier.height(10.dp))
         Text(
@@ -69,10 +70,16 @@ fun PrevOnPrevLoading(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun PrevOnPrevSuccess(title: String, image: Any?, modifier: Modifier = Modifier) {
+fun PrevOnPrevSuccess(
+    title: String,
+    image: Any?,
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit
+) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier
+            .clickable { onClick() }
             .width(width)
             .height(height)
             .padding(10.dp)

@@ -7,7 +7,7 @@ sealed interface StoriesPrevResState {
 
     data class Error(
         val data: List<StoriesPreview>,
-        val message: Exception? = null,
+        val throwable: Throwable,
     ) : StoriesPrevResState
 
     data class Success(

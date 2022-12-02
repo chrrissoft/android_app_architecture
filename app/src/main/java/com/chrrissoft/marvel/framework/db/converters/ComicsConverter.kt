@@ -2,7 +2,6 @@ package com.chrrissoft.marvel.framework.db.converters
 
 import androidx.room.TypeConverter
 import com.chrrissoft.marvel.framework.db.ComicPreview
-import kotlinx.serialization.builtins.ListSerializer
 import kotlinx.serialization.json.Json
 
 class ComicsConverter {

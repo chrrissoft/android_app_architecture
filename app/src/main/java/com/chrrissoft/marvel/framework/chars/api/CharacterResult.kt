@@ -7,7 +7,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class CharacterResult(
-    @SerialName("id") override val id: Int = 0,
+    @SerialName("id") override val id: Int,
     @SerialName("name") override val name: String,
     @SerialName("thumbnail") override val image: Thumbnail,
 ) : CharsPreview {

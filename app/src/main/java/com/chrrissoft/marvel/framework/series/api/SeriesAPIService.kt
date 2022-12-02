@@ -1,22 +1,57 @@
 package com.chrrissoft.marvel.framework.series.api
 
 import com.chrrissoft.marvel.framework.chars.api.Characters
+import com.chrrissoft.marvel.framework.comics.api.Comics
+import com.chrrissoft.marvel.framework.events.api.Events
+import com.chrrissoft.marvel.framework.stories.api.Stories
 import retrofit2.Response
 import retrofit2.http.GET
+import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface SeriesAPIService {
 
     private companion object {
-        const val TS = "ts=1428956&"
-        const val APIKEY = "apikey=04897d6c970cdeab2011aec174b2ad6d&"
-        const val HASH = "hash=f1dfe54e17c6fd558915df011207dd27"
-        const val ENDPOINT = "v1/public/comics?"
-        private const val PREVIEW = "$ENDPOINT$TS$APIKEY$HASH"
+        private const val TS = "ts=1428956"
+        private const val APIKEY = "&apikey=04897d6c970cdeab2011aec174b2ad6d"
+        private const val HASH = "&hash=f1dfe54e17c6fd558915df011207dd27"
     }
 
-    @GET(PREVIEW)
-    suspend fun getPreview(): Response<Series>
+    @GET("v1/public/series/{id}?$TS$APIKEY$HASH")
+    suspend fun getSerie(@Path("id") id: Int): Response<Series>
 
-    @GET("")
-    suspend fun getCharacters(id: Int) : Response<Characters>
+    @GET("v1/public/series/{id}/characters?$TS$APIKEY$HASH")
+    suspend fun getChars(
+        @Path("id") id: Int,
+        @Query("offset") offset: Int,
+        @Query("limit") limit: Int = 20
+    ): Response<Characters>
+
+    @GET("v1/public/series/{id}/comics?$TS$APIKEY$HASH")
+    suspend fun getComics(
+        @Path("id") id: Int,
+        @Query("offset") offset: Int,
+        @Query("limit") limit: Int = 20
+    ): Response<Comics>
+
+    @GET("v1/public/series?$TS$APIKEY$HASH")
+    suspend fun getSeries(
+        @Query("offset") offset: Int,
+        @Query("limit") limit: Int = 20
+    ): Response<Series>
+
+    @GET("v1/public/series/{id}/stories?$TS$APIKEY$HASH")
+    suspend fun getStories(
+        @Path("id") id: Int,
+        @Query("offset") offset: Int,
+        @Query("limit") limit: Int = 20
+    ): Response<Stories>
+
+    @GET("v1/public/series/{id}/events?$TS$APIKEY$HASH")
+    suspend fun getEvents(
+        @Path("id") id: Int,
+        @Query("offset") offset: Int,
+        @Query("limit") limit: Int = 20
+    ): Response<Events>
+
 }

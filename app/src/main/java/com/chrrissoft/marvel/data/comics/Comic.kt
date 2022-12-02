@@ -24,9 +24,9 @@ interface Comic {
     private companion object {
         private fun comicConverter(res: ComicRes): UiComicRes {
             return when (res.state) {
-                is DataError -> UiComicRes(UiError(res.state.message))
+                is DataError -> UiComicRes(UiError(res.state.throwable))
                 is DataLoading -> UiComicRes(UiLoading(res.state.message))
-                is DataSuccess -> UiComicRes(UiSuccess(res.state.title, res.state.image))
+                is DataSuccess -> UiComicRes(UiSuccess(res.state.id, res.state.title, res.state.image))
             }
         }
     }

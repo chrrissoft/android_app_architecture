@@ -5,7 +5,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.MaterialTheme.colorScheme
 import androidx.compose.material3.MaterialTheme.typography
 import androidx.compose.material3.Text
@@ -33,7 +32,7 @@ fun CharInfoPage(
     onLoadEvents: () -> Unit,
 ) {
 
-    if (res == Character.emptyChar) {
+    if (res.isEmpty()) {
         Box(modifier = modifier.fillMaxSize()) {
             Text(
                 text = "Select a char in the previews",

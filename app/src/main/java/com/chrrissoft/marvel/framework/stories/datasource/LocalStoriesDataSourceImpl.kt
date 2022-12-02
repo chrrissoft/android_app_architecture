@@ -22,11 +22,11 @@ class LocalStoriesDataSourceImpl @Inject constructor(
         return emptyFlow()
     }
 
-    override fun getPreview(): Flow<StoriesPrevRes> {
+    override fun getStories(): Flow<StoriesPrevRes> {
         return emptyFlow()
     }
 
-    override fun getCharacters(): Flow<CharsPrevRes> {
+    override fun getChars(): Flow<CharsPrevRes> {
         return emptyFlow()
     }
 

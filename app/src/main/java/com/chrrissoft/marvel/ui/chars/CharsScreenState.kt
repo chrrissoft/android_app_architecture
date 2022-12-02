@@ -2,7 +2,6 @@ package com.chrrissoft.marvel.ui.chars
 
 import com.chrrissoft.marvel.ui.chars.res.CharsPrevRes
 import com.chrrissoft.marvel.ui.common.ScreenPage
-import com.chrrissoft.marvel.ui.common.ScreenPage.INFO
 import com.chrrissoft.marvel.ui.common.ScreenPage.PREVIEW
 
 data class CharsScreenState(

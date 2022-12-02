@@ -1,4 +1,4 @@
-package com.chrrissoft.marvel.ui.components
+package com.chrrissoft.marvel.ui.components.scafoold
 
 import androidx.compose.material.icons.Icons.Filled
 import androidx.compose.material.icons.Icons.Outlined

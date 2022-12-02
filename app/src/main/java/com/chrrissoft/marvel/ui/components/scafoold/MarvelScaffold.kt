@@ -1,4 +1,4 @@
-package com.chrrissoft.marvel.ui.components
+package com.chrrissoft.marvel.ui.components.scafoold
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.material3.ExperimentalMaterial3Api

@@ -1,18 +1,21 @@
 package com.chrrissoft.marvel.usecases.stories
 
 import com.chrrissoft.marvel.data.stories.StoriesRepo
+import com.chrrissoft.marvel.data.stories.StoriesRepo.Source
 import com.chrrissoft.marvel.data.stories.res.storiesPrevConverter
 import com.chrrissoft.marvel.ui.stories.res.StoriesPrevRes
 import com.chrrissoft.marvel.usecases.CalculateDataSourceUseCase
 import com.chrrissoft.marvel.usecases.CalculateDataSourceUseCase.DataSource
 import kotlinx.coroutines.Dispatchers.IO
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.Dispatchers.Main
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class GetStoriesPrevUseCase @Inject constructor(
     private val repo: StoriesRepo,
     private val calculateDataSourceUseCase: CalculateDataSourceUseCase,
@@ -22,21 +25,34 @@ class GetStoriesPrevUseCase @Inject constructor(
     private val _res = MutableStateFlow(StoriesPrevRes())
     val res = _res.asStateFlow()
 
-    suspend operator fun invoke()  {
-        withContext(IO) {
-            launch { getPreviews() }
+    suspend fun init() {
+        withContext(Main) { launch(IO) { calculateDataSourceUseCase.init() } }
+        withContext(Main) { launch(IO) { collectGetBySource() } }
+    }
+
+    suspend fun getChars() {
+        withContext(Main) {
+            launch(IO) {
+                repo.getPreviews(Source.REMOTE).collect { res ->
+                    _res.update { withContext(Main) { storiesPrevConverter(res) } }
+                }
+            }
         }
     }
 
-    private suspend fun getPreviews() {
-        repo.getPreviews(StoriesRepo.Source.LOCAL).collect { res ->
-            _res.update { storiesPrevConverter(res) }
+    private suspend fun collectGetBySource() {
+        calculateDataSourceUseCase.dataSource.collect {
+            withContext(Main) { updateDataSource(it) }
         }
     }
 
-    suspend fun collectGetBySource() {
-        withContext(IO) {
-            calculateDataSourceUseCase.dataSource.collect { dataSource = it }
+    private fun updateDataSource(result: DataSource) { dataSource = result }
+
+    private fun calculateDataSource(dataSource: DataSource): Source {
+        return when (dataSource) {
+            DataSource.LOCAL -> Source.LOCAL
+            DataSource.REMOTE -> Source.REMOTE
         }
     }
+
 }

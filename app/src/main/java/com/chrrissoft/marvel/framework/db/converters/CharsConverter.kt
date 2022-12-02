@@ -3,11 +3,7 @@ package com.chrrissoft.marvel.framework.db.converters
 import androidx.room.TypeConverter
 import com.chrrissoft.marvel.framework.db.CharacterPreview
 import com.chrrissoft.marvel.framework.db.CharacterPreview.Companion.serializer
-import kotlinx.serialization.ExperimentalSerializationApi
-import kotlinx.serialization.Serializable
 import kotlinx.serialization.builtins.ListSerializer
-import kotlinx.serialization.descriptors.listSerialDescriptor
-import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
 class CharsConverter {

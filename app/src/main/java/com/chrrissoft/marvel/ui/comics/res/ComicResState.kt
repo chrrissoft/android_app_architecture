@@ -1,15 +1,14 @@
 package com.chrrissoft.marvel.ui.comics.res
 
-import com.chrrissoft.marvel.ui.comics.Comic
 
 sealed interface ComicResState {
 
     data class Error(
-        val message: Exception
+        val throwable: Throwable
     ) : ComicResState
 
     data class Success(
-        val title: String, val image: Any?
+        val id: Int, val title: String, val image: Any?
     ) : ComicResState
 
     data class Loading(
