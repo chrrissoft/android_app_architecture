@@ -70,6 +70,7 @@ fun StoriesScreen(
                     StoryInfoPage(
                         res = state.info,
                         modifier = Modifier.padding(padding),
+                        onLoadStory = { viewModel.loadStory() },
                         onLoadChars = { viewModel.loadChars() },
                         loadComics = { viewModel.loadComics() },
                         onLoadSeries = { viewModel.loadSeries() },

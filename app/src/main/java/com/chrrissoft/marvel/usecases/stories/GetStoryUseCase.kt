@@ -6,12 +6,14 @@ import com.chrrissoft.marvel.data.stories.StoriesRepo.Source
 import com.chrrissoft.marvel.ui.stories.Story
 import com.chrrissoft.marvel.usecases.CalculateDataSourceUseCase
 import com.chrrissoft.marvel.usecases.CalculateDataSourceUseCase.DataSource
-import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 
@@ -27,6 +29,16 @@ class GetStoryUseCase @Inject constructor(
     suspend fun init() {
         withContext(Main) { launch(IO) { calculateDataSourceUseCase.init() } }
         withContext(Main) { launch(IO) { collectDataSourceResult() } }
+    }
+
+    suspend fun loadStory(id: Int) {
+        withContext(Main) {
+            launch(IO) {
+                repo.getInfo(id, RequestOf.STORY, Source.REMOTE).collect { res ->
+                    _res.update { withContext(Main) { res.toUi() } }
+                }
+            }
+        }
     }
 
     suspend fun loadChars(id: Int) {
@@ -75,7 +87,9 @@ class GetStoryUseCase @Inject constructor(
         }
     }
 
-    private fun updateDataSource(result: DataSource) { dataSource = result }
+    private fun updateDataSource(result: DataSource) {
+        dataSource = result
+    }
 
     private fun calculateDataSource(dataSource: DataSource): Source {
         return when (dataSource) {

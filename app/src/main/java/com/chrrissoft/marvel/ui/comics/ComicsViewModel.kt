@@ -75,6 +75,10 @@ class ComicsViewModel @Inject constructor(
         }
     }
 
+    fun loadComic() {
+        viewModelScope.launch { cachedId?.let { getInfoUseCase.loadComic(it) } }
+    }
+
     fun loadChars() {
         viewModelScope.launch { cachedId?.let { getInfoUseCase.loadChars(it) } }
     }

@@ -70,6 +70,7 @@ fun ComicsScreen(
                     ComicsInfoPage(
                         res = state.info,
                         modifier = Modifier.padding(padding),
+                        onLoadComic = { viewModel.loadComic() },
                         onLoadChars = { viewModel.loadChars() },
                         onLoadSeries = { viewModel.loadSeries() },
                         onLoadStories = { viewModel.loadStories() },

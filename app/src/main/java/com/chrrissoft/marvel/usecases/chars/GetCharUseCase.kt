@@ -29,6 +29,16 @@ class GetCharUseCase @Inject constructor(
         withContext(Main) { launch(IO) { collectDataSourceResult() } }
     }
 
+    suspend fun loadChars(id: Int) {
+        withContext(Main) {
+            launch(IO) {
+                repo.getInfo(id, RequestOf.CHAR, Source.REMOTE).collect { res ->
+                    _res.update { withContext(Main) { res.toUi() } }
+                }
+            }
+        }
+    }
+
     suspend fun loadComics(id: Int) {
         withContext(Main) {
             launch(IO) {

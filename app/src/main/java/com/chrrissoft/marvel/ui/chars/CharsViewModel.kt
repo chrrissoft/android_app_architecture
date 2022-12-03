@@ -67,12 +67,17 @@ class CharsViewModel @Inject constructor(
         if (cachedId == id) changeScreenPage(INFO)
         else {
             cachedId = id
+            loadChar()
             loadComics()
             loadSeries()
             loadStories()
             loadEvents()
             changeScreenPage(INFO)
         }
+    }
+
+    fun loadChar() {
+        viewModelScope.launch { cachedId?.let { getInfoUseCase.loadChars(it) } }
     }
 
     fun loadComics() {

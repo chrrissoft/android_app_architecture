@@ -1,6 +1,7 @@
 package com.chrrissoft.marvel.ui.common.info
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.MaterialTheme.colorScheme
 import androidx.compose.material3.MaterialTheme.shapes
@@ -21,9 +22,9 @@ private val modifier: (Shape, Color, Modifier) -> Modifier = { shape, color, mod
 }
 
 @Composable
-fun ErrorInfo(modifier: Modifier = Modifier) {
+fun ErrorInfo(modifier: Modifier = Modifier, onTryAgain: () -> Unit) {
     Column(
-        modifier(shapes.medium, colorScheme.errorContainer, modifier),
+        modifier(shapes.medium, colorScheme.errorContainer, modifier).clickable { onTryAgain() },
         verticalArrangement = Arrangement.SpaceBetween
     ) {
         InfoImageError(Modifier.weight(10f))
@@ -45,9 +46,12 @@ fun LoadingInfo(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun SuccessInfo(title: String) {
-    Column {
-        InfoImageSuccess()
+fun SuccessInfo(title: String, image: Any?, modifier: Modifier = Modifier) {
+    Column(
+        modifier = modifier(shapes.medium, colorScheme.secondary, modifier),
+        verticalArrangement = Arrangement.SpaceBetween
+    ) {
+        InfoImageSuccess(image)
         InfoTitleSuccess(title)
     }
 }

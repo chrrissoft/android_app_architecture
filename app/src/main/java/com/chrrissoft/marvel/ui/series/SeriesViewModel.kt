@@ -75,6 +75,10 @@ class SeriesViewModel @Inject constructor(
         }
     }
 
+    fun loadSerie() {
+        viewModelScope.launch { cachedId?.let { getInfoUseCase.loadSerie(it) } }
+    }
+
     fun loadChars() {
         viewModelScope.launch { cachedId?.let { getInfoUseCase.loadChars(it) } }
     }

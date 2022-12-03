@@ -70,6 +70,7 @@ fun CharsScreen(
                     CharInfoPage(
                         res = state.info,
                         modifier = Modifier.padding(padding),
+                        onLoadChar = { viewModel.loadChar() },
                         onLoadComics = { viewModel.loadComics() },
                         onLoadSeries = { viewModel.loadSeries() },
                         onLoadStories = { viewModel.loadStories() },

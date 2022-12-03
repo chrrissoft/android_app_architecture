@@ -44,7 +44,7 @@ import com.chrrissoft.marvel.data.stories.res.StoriesPrevResState.Loading as Sto
 import com.chrrissoft.marvel.data.stories.res.StoriesPrevResState.Success as StoriesSuccess
 import com.chrrissoft.marvel.data.chars.CharsDataSource.LocalCharsDataSource
 import com.chrrissoft.marvel.data.chars.CharsDataSource.RemoteCharsDataSource
-import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.flow.channelFlow
 import kotlinx.coroutines.launch
 
 
@@ -54,9 +54,8 @@ class CharsRepoImpl @Inject constructor(
 ) : CharsRepo() {
 
     private var cachedId: Int? = null
-    private val cachedInfo = Char()
+    private var cachedInfo = Char()
 
-    private var selfIsFind = false
     private val cachedChars = mutableListOf<CharsPreview>()
     private val cachedComics = mutableListOf<ComicPreview>()
     private val cachedSeries = mutableListOf<SeriesPreview>()
@@ -82,37 +81,45 @@ class CharsRepoImpl @Inject constructor(
         if (cachedId == null) cachedId = id
         else resetCaches(id)
 
-        return flow {
+        return channelFlow {
 
-            emit(cachedInfo)
+            channel.send(cachedInfo)
 
-            coroutineScope {
-
-                if (!selfIsFind) {
-                    launch(IO) {
-                        getSelfFromCache(id).collect { emit(cachedInfo.copy(self = it)) }
-                        selfIsFind = true
+            when (requestOf) {
+                CHAR -> launch(IO) {
+                    getSelfFromCache(id).collect {
+                        cachedInfo = cachedInfo.copy(self = it)
+                        channel.send(cachedInfo)
                     }
                 }
 
-                when (requestOf) {
-                    COMICS -> launch(IO) {
-                        getComics(id, source).collect { emit(cachedInfo.copy(comics = it)) }
-                    }
-
-                    SERIES -> launch(IO) {
-                        getSeries(id, source).collect { emit(cachedInfo.copy(series = it)) }
-                    }
-
-                    STORIES -> launch(IO) {
-                        getStories(id, source).collect { emit(cachedInfo.copy(stories = it)) }
-                    }
-
-                    EVENTS -> launch(IO) {
-                        getEvents(id, source).collect { emit(cachedInfo.copy(events = it)) }
+                COMICS -> launch(IO) {
+                    getComics(id, source).collect {
+                        cachedInfo = cachedInfo.copy(comics = it)
+                        channel.send(cachedInfo)
                     }
                 }
 
+                SERIES -> launch(IO) {
+                    getSeries(id, source).collect {
+                        cachedInfo = cachedInfo.copy(series = it)
+                        channel.send(cachedInfo)
+                    }
+                }
+
+                STORIES -> launch(IO) {
+                    getStories(id, source).collect {
+                        cachedInfo = cachedInfo.copy(stories = it)
+                        channel.send(cachedInfo)
+                    }
+                }
+
+                EVENTS -> launch(IO) {
+                    getEvents(id, source).collect {
+                        cachedInfo = cachedInfo.copy(events = it)
+                        channel.send(cachedInfo)
+                    }
+                }
             }
         }
     }
@@ -248,20 +255,17 @@ class CharsRepoImpl @Inject constructor(
     // this is called when user selects a new info char
     private fun resetCaches(id: Int) {
         if (cachedId != id) {
-            cachedChars.clear()
             cachedComics.clear()
             cachedSeries.clear()
             cachedStories.clear()
             cachedEvents.clear()
 
-            charsOffset = charsOffset.clean()
             comicsOffset = comicsOffset.clean()
             seriesOffset = seriesOffset.clean()
             storiesOffset = storiesOffset.clean()
             eventsOffset = eventsOffset.clean()
 
             cachedId = id
-            selfIsFind = false
         }
     }
 

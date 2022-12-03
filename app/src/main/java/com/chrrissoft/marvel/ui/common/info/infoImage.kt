@@ -14,7 +14,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
+import coil.request.ImageRequest
 
 @Composable
 fun InfoImageError(modifier: Modifier = Modifier) {
@@ -46,6 +50,16 @@ fun InfoImageLoading(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun InfoImageSuccess() {
-    TODO()
+fun InfoImageSuccess(
+    image: Any?,
+    modifier: Modifier = Modifier
+) {
+    AsyncImage(
+        model = ImageRequest
+            .Builder(LocalContext.current).data(image)
+            .crossfade(true).build(),
+        modifier = modifier.clip(shapes.large).fillMaxSize(),
+        contentDescription = null,
+        contentScale = ContentScale.Crop
+    )
 }

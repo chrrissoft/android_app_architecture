@@ -70,6 +70,7 @@ fun SeriesScreen(
                     SerieInfoPage(
                         res = state.info,
                         modifier = Modifier.padding(padding),
+                        onLoadSerie = { viewModel.loadSerie() },
                         onLoadChars = { viewModel.loadChars() },
                         loadComics = { viewModel.loadComics() },
                         onLoadStories = { viewModel.loadStories() },

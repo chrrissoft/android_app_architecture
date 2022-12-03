@@ -75,6 +75,10 @@ class EventsViewModel @Inject constructor(
         }
     }
 
+    fun loadEvent() {
+        viewModelScope.launch { cachedId?.let { getInfoUseCase.loadEvent(it) } }
+    }
+
     fun loadChars() {
         viewModelScope.launch { cachedId?.let { getInfoUseCase.loadChars(it) } }
     }

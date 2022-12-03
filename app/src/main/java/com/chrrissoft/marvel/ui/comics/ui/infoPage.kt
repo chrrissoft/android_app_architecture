@@ -23,6 +23,7 @@ import com.chrrissoft.marvel.ui.common.info.preview.*
 fun ComicsInfoPage(
     res: Comic,
     modifier: Modifier = Modifier,
+    onLoadComic: () -> Unit,
     onLoadChars: () -> Unit,
     onLoadSeries: () -> Unit,
     onLoadStories: () -> Unit,
@@ -38,7 +39,7 @@ fun ComicsInfoPage(
                 .background(colorScheme.secondaryContainer)
                 .verticalScroll(rememberScrollState())
         ) {
-            Info(res.self)
+            Info(res.self) { onLoadComic() }
             Spacer(Modifier.height(5.dp))
             CharsPreviewsInInfo(res.characters) { onLoadChars() }
             SeriesPreviewsInInfo(res.series) { onLoadSeries() }
@@ -49,11 +50,11 @@ fun ComicsInfoPage(
 }
 
 @Composable
-private fun Info(res: ComicRes) {
+private fun Info(res: ComicRes, onTryAgain: () -> Unit) {
     Log.d(INFO_STATE, "Comic info   ->   ${res.state}")
     when (res.state) {
-        is Error -> ErrorInfo()
+        is Error -> ErrorInfo { onTryAgain() }
         is Loading -> LoadingInfo()
-        is Success -> SuccessInfo(res.state.title)
+        is Success -> SuccessInfo(res.state.title, res.state.image)
     }
 }

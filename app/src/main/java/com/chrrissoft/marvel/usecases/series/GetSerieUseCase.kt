@@ -29,6 +29,16 @@ class GetSerieUseCase @Inject constructor(
         withContext(Main) { launch(IO) { collectDataSourceResult() } }
     }
 
+    suspend fun loadSerie(id: Int) {
+        withContext(Main) {
+            launch(IO) {
+                repo.getInfo(id, RequestOf.SERIE, Source.REMOTE).collect { res ->
+                    _res.update { withContext(Main) { res.toUi() } }
+                }
+            }
+        }
+    }
+
     suspend fun loadChars(id: Int) {
         withContext(Main) {
             launch(IO) {

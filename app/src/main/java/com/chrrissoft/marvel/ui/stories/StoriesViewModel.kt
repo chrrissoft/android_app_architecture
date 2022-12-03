@@ -116,4 +116,8 @@ class StoriesViewModel @Inject constructor(
         _uiState.update { it.copy(screenPage = state) }
     }
 
+    fun loadStory() {
+        viewModelScope.launch { cachedId?.let { getInfoUseCase.loadStory(it) } }
+    }
+
 }

@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.Flow
 abstract class StoriesRepo {
 
     enum class Source { REMOTE, LOCAL }
-    enum class RequestOf { CHARS, COMICS, SERIES, EVENTS }
+    enum class RequestOf { CHARS, COMICS, SERIES, STORY, EVENTS }
 
     abstract fun getPreviews(source: Source): Flow<StoriesPrevRes>
     abstract fun getInfo(id: Int, requestOf: RequestOf, source: Source): Flow<Story>

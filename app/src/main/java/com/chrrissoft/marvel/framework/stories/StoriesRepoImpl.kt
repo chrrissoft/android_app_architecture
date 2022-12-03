@@ -54,7 +54,6 @@ class StoriesRepoImpl @Inject constructor(
     private var cachedId: Int? = null
     private val cachedInfo = Story()
 
-    private var selfIsFind = false
     private val cachedChars = mutableListOf<CharsPreview>()
     private val cachedComics = mutableListOf<ComicPreview>()
     private val cachedSeries = mutableListOf<SeriesPreview>()
@@ -85,15 +84,11 @@ class StoriesRepoImpl @Inject constructor(
             emit(cachedInfo)
 
             coroutineScope {
-
-                if (!selfIsFind) {
-                    launch(IO) {
-                        getSelfFromCache(id).collect { emit(cachedInfo.copy(self = it)) }
-                        selfIsFind = true
-                    }
-                }
-
                 when (requestOf) {
+                    RequestOf.STORY -> launch(IO) {
+                        getSelfFromCache(id).collect { emit(cachedInfo.copy(self = it)) }
+                    }
+
                     RequestOf.COMICS -> launch(IO) {
                         getComics(id, source).collect { emit(cachedInfo.copy(comics = it)) }
                     }
@@ -248,18 +243,15 @@ class StoriesRepoImpl @Inject constructor(
         if (cachedId != id) {
             cachedChars.clear()
             cachedComics.clear()
-            cachedSeries.clear()
             cachedStories.clear()
             cachedEvents.clear()
 
             charsOffset = charsOffset.clean()
             comicsOffset = comicsOffset.clean()
-            seriesOffset = seriesOffset.clean()
             storiesOffset = storiesOffset.clean()
             eventsOffset = eventsOffset.clean()
 
             cachedId = id
-            selfIsFind = false
         }
     }
 

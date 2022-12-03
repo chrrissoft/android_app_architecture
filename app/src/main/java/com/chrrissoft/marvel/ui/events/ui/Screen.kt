@@ -70,6 +70,7 @@ fun EventsScreen(
                     EventsInfoPage(
                         res = state.info,
                         modifier = Modifier.padding(padding),
+                        onLoadEvent = { viewModel.loadEvent() },
                         onLoadChars = { viewModel.loadChars() },
                         loadComics = { viewModel.loadComics() },
                         onLoadSeries = { viewModel.loadSeries() },

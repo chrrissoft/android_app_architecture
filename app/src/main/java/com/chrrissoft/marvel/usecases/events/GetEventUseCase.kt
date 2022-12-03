@@ -83,4 +83,8 @@ class GetEventUseCase @Inject constructor(
             DataSource.REMOTE -> Source.REMOTE
         }
     }
+
+    suspend fun loadEvent(id: Int) {
+        repo.getInfo(id, RequestOf.EVENT, Source.REMOTE)
+    }
 }
