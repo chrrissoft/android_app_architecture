@@ -13,6 +13,12 @@ class RemoteEventsDataSourceImp @Inject constructor(
     private val api: EventsAPIService
 ) : RemoteEventsDataSource {
 
+    override fun getEvent(id: Int) = flow {
+        val apiResult = api.getEvent(id).body()?.data?.results ?: emptyList()
+        val result = apiResult.first { it.id == id }
+        emit(result)
+    }
+
     override fun getChars(id: Int, offset: CharsOffset) = flow {
         val apiResult = api.getChars(id, offset.value).body()?.data?.results ?: emptyList()
         emit(apiResult)

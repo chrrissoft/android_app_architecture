@@ -18,5 +18,6 @@ data class Comic(
     override val events: EventsPrevRes = EventsPrevRes(EventsPrevResState.Loading()),
     override val stories: StoriesPrevRes = StoriesPrevRes(StoriesPrevResState.Loading()),
     override val characters: CharsPrevRes = CharsPrevRes(CharsPrevResState.Loading()),
-
-    ): Comic
+    ): Comic {
+    override fun clean() = Comic()
+}

@@ -11,27 +11,31 @@ import com.chrrissoft.marvel.framework.comics.datasource.ComicsOffset
 import com.chrrissoft.marvel.framework.events.datasource.EventsOffset
 import com.chrrissoft.marvel.framework.stories.datasource.StoriesOffset
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.emptyFlow
 import javax.inject.Inject
 
 class LocalSeriesDataSourceImpl @Inject constructor() : LocalSeriesDataSource {
+
+    override fun getSerie(id: Int): Flow<SeriesPreview> {
+        TODO("Implement support to local access")
+    }
+
     override fun getChars(id: Int, offset: CharsOffset): Flow<List<CharsPreview>> {
-        return emptyFlow()
+        TODO("Implement support to local access")
     }
 
     override fun getComics(id: Int, offset: ComicsOffset): Flow<List<ComicPreview>> {
-        return emptyFlow()
+        TODO("Implement support to local access")
     }
 
     override fun getSeries(offset: SeriesOffset): Flow<List<SeriesPreview>> {
-        return emptyFlow()
+        TODO("Implement support to local access")
     }
 
     override fun getStories(id: Int, offset: StoriesOffset): Flow<List<StoriesPreview>> {
-        return emptyFlow()
+        TODO("Implement support to local access")
     }
 
     override fun getEvents(id: Int, offset: EventsOffset): Flow<List<EventPreview>> {
-        return emptyFlow()
+        TODO("Implement support to local access")
     }
 }

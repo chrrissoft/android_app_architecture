@@ -18,4 +18,6 @@ data class Story(
     override val comics: ComicsPrevRes = ComicsPrevRes(ComicsPrevResState.Loading()),
     override val series: SeriesPrevRes = SeriesPrevRes(SeriesPrevResState.Loading()),
     override val characters: CharsPrevRes = CharsPrevRes(CharsPrevResState.Loading())
-) : Story
+) : Story {
+    override fun clean() = Story()
+}

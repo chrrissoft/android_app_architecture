@@ -47,4 +47,6 @@ interface Char {
         comics = comicsPrevConverter(comics),
     )
 
+    fun clean() : Char
+
 }

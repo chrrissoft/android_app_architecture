@@ -13,8 +13,14 @@ class RemoteCharsDataSourceImp @Inject constructor(
     private val api: CharsAPIService
 ) : RemoteCharsDataSource {
 
+    override fun getChar(id: Int) = flow {
+        val apiResult = api.getChars(130).body()?.data?.results ?: emptyList()
+        val result = apiResult.first { it.id == id }
+        emit(result)
+    }
+
     override fun getChars(offset: CharsOffset) = flow {
-        val apiResult = api.getChars(offset.value).body()?.data?.results ?: emptyList()
+        val apiResult = api.getChars(130).body()?.data?.results ?: emptyList()
         emit(apiResult)
     }
 

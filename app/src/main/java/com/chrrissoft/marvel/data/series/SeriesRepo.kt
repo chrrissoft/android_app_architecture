@@ -17,7 +17,7 @@ abstract class SeriesRepo {
     abstract fun getPreviews(source: Source): Flow<SeriesPrevRes>
     abstract fun getInfo(id: Int, requestOf: RequestOf, source: Source): Flow<Serie>
 
-    protected abstract fun getSelfFromCache(id: Int): Flow<SerieRes>
+    protected abstract fun getSelf(id: Int, source: Source): Flow<SerieRes>
 
     protected abstract fun getChars(id: Int, source: Source): Flow<CharsPrevRes>
 

@@ -1,9 +1,9 @@
 package com.chrrissoft.marvel.di
 
-import android.content.Context
 import androidx.room.Room
-import com.chrrissoft.marvel.framework.chars.db.CharacterDao
+import com.chrrissoft.marvel.MarvelApp
 import com.chrrissoft.marvel.framework.Database
+import com.chrrissoft.marvel.framework.chars.db.CharacterDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -22,7 +22,7 @@ class DatabaseModule {
     @Singleton
     @Provides
     fun provideMarvelDatabase(
-        @ApplicationContext app: Context
+        @ApplicationContext app: MarvelApp
     ) = Room.databaseBuilder(
         app, Database::class.java, DATABASE_NAME
     ).build()
@@ -31,4 +31,3 @@ class DatabaseModule {
     @Provides
     fun provideCharactersDao(db: Database): CharacterDao = db.characterDao()
 }
-

@@ -13,6 +13,8 @@ import kotlinx.coroutines.flow.Flow
 
 interface StoriesDataSource {
 
+    fun getStory(id: Int) : Flow<StoriesPreview>
+
     fun getChars(id: Int, offset: CharsOffset) : Flow<List<CharsPreview>>
 
     fun getComics(id: Int, offset: ComicsOffset) : Flow<List<ComicPreview>>

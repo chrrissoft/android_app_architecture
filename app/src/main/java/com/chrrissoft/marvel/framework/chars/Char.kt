@@ -18,4 +18,6 @@ data class Char(
     override val series: SeriesPrevRes = SeriesPrevRes(SeriesPrevResState.Loading()),
     override val stories: StoriesPrevRes = StoriesPrevRes(StoriesPrevResState.Loading()),
     override val events: EventsPrevRes = EventsPrevRes(EventsPrevResState.Loading()),
-) : Char
+) : Char {
+    override fun clean() = Char()
+}

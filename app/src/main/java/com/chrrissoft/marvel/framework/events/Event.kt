@@ -18,4 +18,6 @@ data class Event(
     override val series: SeriesPrevRes = SeriesPrevRes(SeriesPrevResState.Loading()),
     override val stories: StoriesPrevRes = StoriesPrevRes(StoriesPrevResState.Loading()),
     override val chars: CharsPrevRes = CharsPrevRes(CharsPrevResState.Loading()),
-) : Event
+) : Event {
+    override fun clean() = Event()
+}

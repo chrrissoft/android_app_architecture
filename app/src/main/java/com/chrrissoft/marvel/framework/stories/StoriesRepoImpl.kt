@@ -12,6 +12,8 @@ import com.chrrissoft.marvel.data.stories.StoriesDataSource.LocalStoriesDataSour
 import com.chrrissoft.marvel.data.stories.StoriesDataSource.RemoteStoriesDataSource
 import com.chrrissoft.marvel.data.stories.StoriesPreview
 import com.chrrissoft.marvel.data.stories.StoriesRepo
+import com.chrrissoft.marvel.data.stories.StoriesRepo.RequestOf.*
+import com.chrrissoft.marvel.data.stories.StoriesRepo.Source.*
 import com.chrrissoft.marvel.data.stories.res.StoriesPrevRes
 import com.chrrissoft.marvel.data.stories.res.StoryRes
 import com.chrrissoft.marvel.data.stories.res.StoryResState.Error
@@ -23,9 +25,9 @@ import com.chrrissoft.marvel.framework.events.datasource.EventsOffset
 import com.chrrissoft.marvel.framework.series.datasource.SeriesOffset
 import com.chrrissoft.marvel.framework.stories.datasource.StoriesOffset
 import kotlinx.coroutines.Dispatchers.IO
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.channelFlow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -52,7 +54,7 @@ class StoriesRepoImpl @Inject constructor(
 ) : StoriesRepo() {
 
     private var cachedId: Int? = null
-    private val cachedInfo = Story()
+    private var cachedInfo = Story()
 
     private val cachedChars = mutableListOf<CharsPreview>()
     private val cachedComics = mutableListOf<ComicPreview>()
@@ -69,8 +71,8 @@ class StoriesRepoImpl @Inject constructor(
 
     override fun getPreviews(source: Source): Flow<StoriesPrevRes> {
         return when (source) {
-            Source.LOCAL -> tryLocalPreviews()
-            Source.REMOTE -> tryRemotePreviews()
+            LOCAL -> tryLocalPreviews()
+            REMOTE -> tryRemotePreviews()
         }
     }
 
@@ -79,34 +81,47 @@ class StoriesRepoImpl @Inject constructor(
         if (cachedId == null) cachedId = id
         else resetCaches(id)
 
-        return flow {
+        return channelFlow {
 
-            emit(cachedInfo)
+            channel.send(cachedInfo)
 
-            coroutineScope {
                 when (requestOf) {
-                    RequestOf.STORY -> launch(IO) {
-                        getSelfFromCache(id).collect { emit(cachedInfo.copy(self = it)) }
+                    STORY -> launch(IO) {
+                        getSelfFromCache(id).collect {
+                            cachedInfo= cachedInfo.copy(self = it)
+                            channel.send(cachedInfo)
+                        }
                     }
 
-                    RequestOf.COMICS -> launch(IO) {
-                        getComics(id, source).collect { emit(cachedInfo.copy(comics = it)) }
+                    COMICS -> launch(IO) {
+                        getComics(id, source).collect {
+                            cachedInfo= cachedInfo.copy(comics = it)
+                            channel.send(cachedInfo)
+                        }
                     }
 
-                    RequestOf.SERIES -> launch(IO) {
-                        getSeries(id, source).collect { emit(cachedInfo.copy(series = it)) }
+                    SERIES -> launch(IO) {
+                        getSeries(id, source).collect {
+                            cachedInfo= cachedInfo.copy(series = it)
+                            channel.send(cachedInfo)
+                        }
                     }
 
-                    RequestOf.CHARS -> launch(IO) {
-                        getChars(id, source).collect { emit(cachedInfo.copy(characters = it)) }
+                    CHARS -> launch(IO) {
+                        getChars(id, source).collect {
+                            cachedInfo= cachedInfo.copy(characters = it)
+                            channel.send(cachedInfo)
+                        }
                     }
 
-                    RequestOf.EVENTS -> launch(IO) {
-                        getEvents(id, source).collect { emit(cachedInfo.copy(events = it)) }
+                    EVENTS -> launch(IO) {
+                        getEvents(id, source).collect {
+                            cachedInfo= cachedInfo.copy(events = it)
+                            channel.send(cachedInfo)
+                        }
                     }
                 }
 
-            }
         }
     }
 
@@ -123,29 +138,29 @@ class StoriesRepoImpl @Inject constructor(
 
     override fun getChars(id: Int, source: Source): Flow<CharsPrevRes> {
         return when (source) {
-            Source.LOCAL -> tryLocaleChars(id)
-            Source.REMOTE -> tryRemoteChars(id)
+            LOCAL -> tryLocaleChars(id)
+            REMOTE -> tryRemoteChars(id)
         }
     }
 
     override fun getComics(id: Int, source: Source): Flow<ComicsPrevRes> {
         return when (source) {
-            Source.LOCAL -> tryLocaleComics(id)
-            Source.REMOTE -> tryRemoteComics(id)
+            LOCAL -> tryLocaleComics(id)
+            REMOTE -> tryRemoteComics(id)
         }
     }
 
     override fun getSeries(id: Int, source: Source): Flow<SeriesPrevRes> {
         return when (source) {
-            Source.LOCAL -> tryLocalSeries(id)
-            Source.REMOTE -> tryRemoteSeries(id)
+            LOCAL -> tryLocalSeries(id)
+            REMOTE -> tryRemoteSeries(id)
         }
     }
 
     override fun getEvents(id: Int, source: Source): Flow<EventsPrevRes> {
         return when (source) {
-            Source.LOCAL -> tryLocaleEvents(id)
-            Source.REMOTE -> tryRemoteEvents(id)
+            LOCAL -> tryLocaleEvents(id)
+            REMOTE -> tryRemoteEvents(id)
         }
     }
 
@@ -198,7 +213,7 @@ class StoriesRepoImpl @Inject constructor(
     private fun tryLocalPreviews(): Flow<StoriesPrevRes> {
         return flow {
             emit(StoriesPrevRes(StoriesLoading(cachedStories)))
-            localDataSource.getStories(storiesOffset).collect { updateStoriesCaches(it) }
+            localDataSource.getStories(storiesOffset).collect { updateStoriesCaches(it, it.size) }
             emit(StoriesPrevRes(StoriesSuccess(cachedStories)))
         }.catch { StoriesPrevRes(StoriesError(cachedStories, it)) }
     }
@@ -206,7 +221,7 @@ class StoriesRepoImpl @Inject constructor(
     private fun tryLocaleChars(id: Int): Flow<CharsPrevRes> {
         return flow {
             emit(CharsPrevRes(CharsLoading(cachedChars)))
-            localDataSource.getChars(id, charsOffset).collect { updateCharsCaches(it) }
+            localDataSource.getChars(id, charsOffset).collect { updateCharsCaches(it, it.size) }
             emit(CharsPrevRes(CharsSuccess(cachedChars)))
         }.catch { CharsPrevRes(CharsError(cachedChars, it)) }
     }
@@ -214,7 +229,7 @@ class StoriesRepoImpl @Inject constructor(
     private fun tryLocaleComics(id: Int): Flow<ComicsPrevRes> {
         return flow {
             emit(ComicsPrevRes(ComicsLoading(cachedComics)))
-            localDataSource.getComics(id, comicsOffset).collect { updateComicsCaches(it) }
+            localDataSource.getComics(id, comicsOffset).collect { updateComicsCaches(it, it.size) }
             emit(ComicsPrevRes(ComicsSuccess(cachedComics)))
         }.catch { ComicsPrevRes(ComicsError(cachedComics, it)) }
     }
@@ -222,7 +237,7 @@ class StoriesRepoImpl @Inject constructor(
     private fun tryLocalSeries(id: Int): Flow<SeriesPrevRes> {
         return flow {
             emit(SeriesPrevRes(SeriesLoading(cachedSeries)))
-            localDataSource.getSeries(id, seriesOffset).collect { updateSeriesCaches(it) }
+            localDataSource.getSeries(id, seriesOffset).collect { updateSeriesCaches(it, it.size) }
             emit(SeriesPrevRes(SeriesSuccess(cachedSeries)))
         }.catch { SeriesPrevRes(SeriesError(cachedSeries, it)) }
     }
@@ -230,7 +245,7 @@ class StoriesRepoImpl @Inject constructor(
     private fun tryLocaleEvents(id: Int): Flow<EventsPrevRes> {
         return flow {
             emit(EventsPrevRes(EventsLoading(cachedEvents)))
-            localDataSource.getEvents(id, eventsOffset).collect { updateEventsCaches(it) }
+            localDataSource.getEvents(id, eventsOffset).collect { updateEventsCaches(it, it.size) }
             emit(EventsPrevRes(EventsSuccess(cachedEvents)))
         }.catch { EventsPrevRes(EventsError(cachedEvents, it)) }
     }
@@ -251,6 +266,8 @@ class StoriesRepoImpl @Inject constructor(
             storiesOffset = storiesOffset.clean()
             eventsOffset = eventsOffset.clean()
 
+            cachedInfo = cachedInfo.clean()
+
             cachedId = id
         }
     }
@@ -258,29 +275,29 @@ class StoriesRepoImpl @Inject constructor(
 
     // this methods are called when user request for more data
 
-    private fun updateCharsCaches(result: List<CharsPreview>) {
+    private fun updateCharsCaches(result: List<CharsPreview>, offset: Int = charsOffset.value) {
         cachedChars.addAll(result)
-        charsOffset = charsOffset.update(charsOffset.value)
+        charsOffset = charsOffset.update(offset)
     }
 
-    private fun updateComicsCaches(result: List<ComicPreview>) {
+    private fun updateComicsCaches(result: List<ComicPreview>, offset: Int = comicsOffset.value) {
         cachedComics.addAll(result)
-        charsOffset = charsOffset.update(charsOffset.value)
+        charsOffset = charsOffset.update(offset)
     }
 
-    private fun updateSeriesCaches(result: List<SeriesPreview>) {
+    private fun updateSeriesCaches(result: List<SeriesPreview>, offset: Int = seriesOffset.value) {
         cachedSeries.addAll(result)
-        charsOffset = charsOffset.update(charsOffset.value)
+        charsOffset = charsOffset.update(offset)
     }
 
-    private fun updateStoriesCaches(result: List<StoriesPreview>) {
+    private fun updateStoriesCaches(result: List<StoriesPreview>, offset: Int = storiesOffset.value) {
         cachedStories.addAll(result)
-        charsOffset = charsOffset.update(charsOffset.value)
+        charsOffset = charsOffset.update(offset)
     }
 
-    private fun updateEventsCaches(result: List<EventPreview>) {
+    private fun updateEventsCaches(result: List<EventPreview>, offset: Int = eventsOffset.value) {
         cachedEvents.addAll(result)
-        charsOffset = charsOffset.update(charsOffset.value)
+        charsOffset = charsOffset.update(offset)
     }
 
 }

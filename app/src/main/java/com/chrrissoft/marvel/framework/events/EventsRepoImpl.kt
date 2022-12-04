@@ -38,11 +38,11 @@ import com.chrrissoft.marvel.data.stories.res.StoriesPrevResState.Loading as Sto
 import com.chrrissoft.marvel.data.stories.res.StoriesPrevResState.Success as StoriesSuccess
 import com.chrrissoft.marvel.data.events.EventsDataSource.LocalEventsDataSource
 import com.chrrissoft.marvel.data.events.EventsDataSource.RemoteEventsDataSource
+import com.chrrissoft.marvel.data.events.EventsRepo.RequestOf.*
+import com.chrrissoft.marvel.data.events.EventsRepo.Source.*
 import com.chrrissoft.marvel.data.events.res.EventRes
-import com.chrrissoft.marvel.data.events.res.EventResState.Error
-import com.chrrissoft.marvel.data.events.res.EventResState.Loading
-import com.chrrissoft.marvel.data.events.res.EventResState.Success
-import kotlinx.coroutines.coroutineScope
+import com.chrrissoft.marvel.data.events.res.EventResState.*
+import kotlinx.coroutines.flow.channelFlow
 import kotlinx.coroutines.launch
 
 
@@ -52,7 +52,7 @@ class EventsRepoImpl @Inject constructor(
 ) : EventsRepo() {
 
     private var cachedId: Int? = null
-    private val cachedInfo = Event()
+    private var cachedInfo = Event()
 
     private val cachedChars = mutableListOf<CharsPreview>()
     private val cachedComics = mutableListOf<ComicPreview>()
@@ -69,8 +69,8 @@ class EventsRepoImpl @Inject constructor(
 
     override fun getPreviews(source: Source): Flow<EventsPrevRes> {
         return when (source) {
-            Source.LOCAL -> tryLocalePreviews()
-            Source.REMOTE -> tryRemotePreviews()
+            LOCAL -> tryLocalePreviews()
+            REMOTE -> tryRemotePreviews()
         }
     }
 
@@ -79,79 +79,106 @@ class EventsRepoImpl @Inject constructor(
         if (cachedId == null) cachedId = id
         else resetCaches(id)
 
-        return flow {
+        return channelFlow {
 
-            emit(cachedInfo)
-
-            coroutineScope {
+            channel.send(cachedInfo)
 
                 when (requestOf) {
-                    RequestOf.EVENT -> launch(IO) {
-                        getSelfFromCache(id).collect { emit(cachedInfo.copy(self = it)) }
+                    EVENT -> launch(IO) {
+                        getSelf(id, source).collect {
+                            cachedInfo = cachedInfo.copy(self = it)
+                            channel.send(cachedInfo)
+                        }
                     }
 
-                    RequestOf.CHARS -> launch(IO) {
-                        getChars(id, source).collect { emit(cachedInfo.copy(chars = it)) }
+                    CHARS -> launch(IO) {
+                        getChars(id, source).collect {
+                            cachedInfo = cachedInfo.copy(chars = it)
+                            channel.send(cachedInfo)
+                        }
                     }
 
-                    RequestOf.COMICS -> launch(IO) {
-                        getComics(id, source).collect { emit(cachedInfo.copy(comics = it)) }
+                    COMICS -> launch(IO) {
+                        getComics(id, source).collect {
+                            cachedInfo = cachedInfo.copy(comics = it)
+                            channel.send(cachedInfo)
+                        }
                     }
 
-                    RequestOf.SERIES -> launch(IO) {
-                        getSeries(id, source).collect { emit(cachedInfo.copy(series = it)) }
+                    SERIES -> launch(IO) {
+                        getSeries(id, source).collect {
+                            cachedInfo = cachedInfo.copy(series = it)
+                            channel.send(cachedInfo)
+                        }
                     }
 
-                    RequestOf.STORIES -> launch(IO) {
-                        getStories(id, source).collect { emit(cachedInfo.copy(stories = it)) }
+                    STORIES -> launch(IO) {
+                        getStories(id, source).collect {
+                            cachedInfo = cachedInfo.copy(stories = it)
+                            channel.send(cachedInfo)
+                        }
                     }
                 }
 
-            }
         }
     }
 
 
 /* *************************  Internal Attempts  ************************* */
 
-    override fun getSelfFromCache(id: Int): Flow<EventRes> {
+    override fun getSelf(id: Int, source: Source): Flow<EventRes> {
         return flow {
             emit(EventRes(Loading()))
             val char = cachedChars.first { it.id == id }
             emit(EventRes(Success(char.id, char.name, char.image)))
-        }.catch { emit(EventRes(Error(it))) }
+        }.catch {
+            when(source) {
+                REMOTE -> tryRemoteGetSelf(id)
+                LOCAL -> tryLocalGetSelf(id)
+            }
+        }
     }
 
     override fun getChars(id: Int, source: Source): Flow<CharsPrevRes> {
         return when (source) {
-            Source.LOCAL -> tryLocalChars(id)
-            Source.REMOTE -> tryRemoteChars(id)
+            LOCAL -> tryLocalChars(id)
+            REMOTE -> tryRemoteChars(id)
         }
     }
 
     override fun getComics(id: Int, source: Source): Flow<ComicsPrevRes> {
         return when (source) {
-            Source.LOCAL -> tryLocaleComics(id)
-            Source.REMOTE -> tryRemoteComics(id)
+            LOCAL -> tryLocaleComics(id)
+            REMOTE -> tryRemoteComics(id)
         }
     }
 
     override fun getSeries(id: Int, source: Source): Flow<SeriesPrevRes> {
         return when (source) {
-            Source.LOCAL -> tryLocalSeries(id)
-            Source.REMOTE -> tryRemoteSeries(id)
+            LOCAL -> tryLocalSeries(id)
+            REMOTE -> tryRemoteSeries(id)
         }
     }
 
     override fun getStories(id: Int, source: Source): Flow<StoriesPrevRes> {
         return when (source) {
-            Source.LOCAL -> tryLocalStories(id)
-            Source.REMOTE -> tryRemoteStories(id)
+            LOCAL -> tryLocalStories(id)
+            REMOTE -> tryRemoteStories(id)
         }
     }
 
 
 /* *************************  Internal Remote Attempts  ************************* */
+
+    private fun tryRemoteGetSelf(id: Int): Flow<EventRes> {
+        return flow {
+            emit(EventRes(Loading()))
+            remoteDataSource.getEvent(id).collect {
+                emit(EventRes(Success(it.id, it.title, it.image)))
+            }
+        }.catch { emit(EventRes(Error(it))) }
+    }
+
 
     private fun tryRemoteChars(id: Int): Flow<CharsPrevRes> {
         return flow {
@@ -195,6 +222,15 @@ class EventsRepoImpl @Inject constructor(
 
 
 /* *************************  Internal Locale Attempts  ************************* */
+
+    private fun tryLocalGetSelf(id: Int): Flow<EventRes> {
+        return flow {
+            emit(EventRes(Loading()))
+            localDataSource.getEvent(id).collect {
+                emit(EventRes(Success(it.id, it.title, it.image)))
+            }
+        }.catch { EventRes(Error(it)) }
+    }
 
     private fun tryLocalChars(id: Int): Flow<CharsPrevRes> {
         return flow {
@@ -251,6 +287,8 @@ class EventsRepoImpl @Inject constructor(
             comicsOffset = comicsOffset.clean()
             seriesOffset = seriesOffset.clean()
             storiesOffset = storiesOffset.clean()
+
+            cachedInfo = cachedInfo.clean()
 
             cachedId = id
         }

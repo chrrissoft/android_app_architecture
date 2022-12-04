@@ -19,6 +19,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
+import com.chrrissoft.marvel.R.drawable.image_null
 
 private val width
     @Composable
@@ -92,7 +93,7 @@ fun PrevOnInfoSuccess(title: String, image: Any?, modifier: Modifier = Modifier)
 private fun Image(data: Any?, modifier: Modifier = Modifier) {
     AsyncImage(
         model = ImageRequest
-            .Builder(LocalContext.current).data(data)
+            .Builder(LocalContext.current).data(data).error(image_null)
             .crossfade(true).build(),
         contentDescription = null,
         contentScale = ContentScale.Crop,

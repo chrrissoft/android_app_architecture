@@ -17,7 +17,7 @@ abstract class EventsRepo {
     abstract fun getPreviews(source: Source): Flow<EventsPrevRes>
     abstract fun getInfo(id: Int, requestOf: RequestOf, source: Source): Flow<Event>
 
-    protected abstract fun getSelfFromCache(id: Int): Flow<EventRes>
+    protected abstract fun getSelf(id: Int, source: Source): Flow<EventRes>
 
     protected abstract fun getChars(id: Int, source: Source): Flow<CharsPrevRes>
 

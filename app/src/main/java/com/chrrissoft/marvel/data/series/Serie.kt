@@ -9,7 +9,7 @@ import com.chrrissoft.marvel.data.events.res.EventsPrevRes
 import com.chrrissoft.marvel.data.series.res.SerieRes
 import com.chrrissoft.marvel.data.stories.res.StoriesPrevRes
 import com.chrrissoft.marvel.data.stories.res.storiesPrevConverter
-import com.chrrissoft.marvel.ui.series.Serie
+import com.chrrissoft.marvel.ui.series.Serie as UiSerie
 import com.chrrissoft.marvel.data.series.res.SerieResState.Error as DataError
 import com.chrrissoft.marvel.data.series.res.SerieResState.Loading as DataLoading
 import com.chrrissoft.marvel.data.series.res.SerieResState.Success as DataSuccess
@@ -37,11 +37,13 @@ interface Serie {
     val stories: StoriesPrevRes
     val chars: CharsPrevRes
 
-    fun toUi() = Serie(
+    fun toUi() = UiSerie(
         self = serieConverter(self),
         events = eventsPrevConverter(events),
         comics = comicsPrevConverter(comics),
         stories = storiesPrevConverter(stories),
         characters = charsPrevConverter(chars),
     )
+
+    fun clean(): Serie
 }

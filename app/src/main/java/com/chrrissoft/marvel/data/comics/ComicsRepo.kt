@@ -17,7 +17,7 @@ abstract class ComicsRepo {
     abstract fun getPreviews(source: Source): Flow<ComicsPrevRes>
     abstract fun getInfo(id: Int, requestOf: RequestOf, source: Source): Flow<Comic>
 
-    protected abstract fun getSelfFromCache(id: Int): Flow<ComicRes>
+    protected abstract fun getSelf(id: Int, source: Source): Flow<ComicRes>
 
     protected abstract fun getChars(id: Int, source: Source): Flow<CharsPrevRes>
 

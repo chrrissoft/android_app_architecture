@@ -8,14 +8,12 @@ import com.chrrissoft.marvel.usecases.CalculateDataSourceUseCase
 import com.chrrissoft.marvel.usecases.CalculateDataSourceUseCase.DataSource
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
+
 class GetEventsPrevUseCase @Inject constructor(
     private val repo: EventsRepo,
     private val calculateDataSourceUseCase: CalculateDataSourceUseCase,
